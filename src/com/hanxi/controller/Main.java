@@ -23,6 +23,7 @@ public class Main {
         System.out.println("//这个我在yh分支上的修改");
         System.out.println("//这个我在yh分支上的第二次修改");
         System.out.println("//测试远程仓库和本地仓库不一样的时候情况（本地）");
+        System.out.println("//-----------这是我在master上的修改-----------");
         InputStream is = null;
         String propertyName;
         String typeName;
