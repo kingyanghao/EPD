@@ -20,6 +20,7 @@ public class Main {
      */
     private void getModel(String filePath) {
         System.out.println("//------------以下是生成的Model代码（原始版）-----------");
+        System.out.println("//-----------这是我在master上的修改-----------");
         InputStream is = null;
         String propertyName;
         String typeName;
