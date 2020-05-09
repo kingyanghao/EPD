@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.hanxi.dao.Year_checkDao">
+		<insert id="insert_yearly_check"  parameterType="year_check" useGeneratedKeys="true" >
+		insert into [dbo].[yearly_check] (
+		[y_01],
+		[y_02],
+		[y_03],
+		[y_04],
+		[year],
+		[bench_name],
+		[create_time],
+		[username]
+		)values(#{y_01},
+		#{y_02},
+		#{y_03},
+		#{y_04},
+		#{year},
+		#{bench_name},
+		#{create_time},
+		#{username}
+		
+		)
+	</insert>
+	
+	
+	<select id="yearly_checkDeails" resultType="year_check">
+		SELECT 
+			a.*
+		FROM [dbo].[yearly_check] a
+		<where>
+		
+			<if test="year_id != null and year_id != '' and year_id!=0">
+					AND year_id = #{year_id}
+			</if>
+			<if test="bench_name != null and bench_name != '' ">
+					AND bench_name = #{bench_name}
+			</if>
+		
+		</where>
+		
+	</select>
+	
+	<update id="update_year_check" parameterType="year_check">
+		UPDATE [dbo].[yearly_check]
+		<trim prefix="set" suffixOverrides=",">
+			<if test="y_01 != null ">y_01 =#{y_01},</if>
+			<if test="y_02 != null  ">y_02 =#{y_02},</if>
+			<if test="y_03 != null ">y_03 =#{y_03},</if>
+			<if test="y_04 != null ">y_04 =#{y_04},</if>
+			<if test="bench_name != null ">bench_name =#{bench_name},</if>
+			<if test="year != null ">year =#{year},</if>
+			<if test="username != null ">username =#{username},</if>
+			<if test="create_time != null ">create_time =#{create_time},</if>
+		 </trim>	
+		<where>
+			<if test="year_id != null and year_id != ''">
+					AND year_id = #{year_id}
+			</if>
+			<if test="bench_name != null and bench_name != ''">
+					AND bench_name = #{bench_name}
+			</if>
+			<if test="year != null and year != ''">
+					AND year = #{year}
+			</if>
+			
+		</where>
+	</update>
+	
+	
+	<select id="yearly_checkList"  resultType="year_check">
+		select top ${pageSize} *  from yearly_check 
+		<where>
+		     <if test=" bench_name != ''and  bench_name!=null ">
+            		AND bench_name like concat(concat('%',#{bench_name}),'%')
+       		</if>
+       		<if test=" year != ''and  year ">
+            		AND year = #{year}
+   			</if>
+   			
+		 AND year_id not in (select top (${pageSize} * (${pageIndex} -1)) year_id from yearly_check 
+			<where>
+		      <if test=" bench_name != ''and  bench_name!=null ">
+            		AND bench_name like concat(concat('%',#{bench_name}),'%')
+       		</if>
+       		<if test=" year != ''and  year ">
+            		AND year = #{year}
+   			</if>
+   			
+		  </where>
+		 ORDER BY [create_time] DESC)
+		 </where>
+		   ORDER BY [create_time] DESC
+	</select>
+	
+	
+	<select id="findYearCount"  resultType="Integer">
+		select count(*) as count from yearly_check 
+		<where>
+		      <if test=" bench_name != ''and  bench_name!=null ">
+            		AND bench_name like concat(concat('%',#{bench_name}),'%')
+       		</if>
+       		<if test=" year != ''and  year ">
+            		AND year = #{year}
+   			</if>
+   		
+		  </where> 
+	</select>
+	
+	<delete id="delete_yearly_check">
+		delete from yearly_check where year_id = #{0}
+	</delete>
+	
+</mapper>

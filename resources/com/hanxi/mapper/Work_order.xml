@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.hanxi.dao.Work_orderDao">
+		<insert id="insert_work_order"  parameterType="work_order" useGeneratedKeys="true" >
+		insert into [dbo].[work_order] (
+		[bench_name],
+		[type],
+		[va_no],
+		[kb_no],
+		[sap_no],
+		[bm_no],
+		[work_center],
+		[customer_project],
+		[part_quantity],
+		[preferred_operator],
+		[operator],
+		[work_hours],
+		[deadline],
+		[issue_date],
+		[remark],
+		[order_placer],
+		[overtime],
+		[one],
+		[one_point1],
+		[one_point2],
+		[one_point3],
+		[one_point4],
+		[one_point5],
+		[one_point6],
+		[two],
+		[two_point1],
+		[two_point2],
+		[two_point3],
+		[two_point4],
+		[three],
+		[three_point1],
+		[three_point2],
+		[three_point3],
+		[four],
+		[four_point1],
+		[four_point2],
+		[four_point3],
+		[four_point4],
+		[four_point5],
+		[four_point6],
+		[four_point7],
+		[five],
+		[five_point1],
+		[five_point2],
+		[five_point3],
+		[five_point4],
+		[five_point5],
+		[five_point6],
+		[five_point7],
+		[five_point8],
+		[five_point9],
+		[five_point10],
+		[injector_round],
+		[injector_num],
+		[injector_time],
+		[six],
+		[six_point1],
+		[six_point2],
+		[six_point3],
+		[six_point4],
+		[seven],
+		[seven_point1],
+		[seven_point2],
+		[seven_point3],
+		[seven_point4],
+		[seven_point5],
+		[seven_point6],
+		[eight],
+		[eight_point1],
+		[eight_point2],
+		[eight_point3],
+		[eight_point4],
+		[nine],
+		[nine_point1],
+		[nine_point2],
+		[ten],
+		[ten_point1],
+		[ten_point2],
+		[eleven],
+		[eleven_point1],
+		[eleven_point2],
+		[eleven_point3],
+		[twelve],
+		[twelve_point1],
+		[twelve_point2],
+		[twelve_point3],
+		[twelve_point4],
+		[thirteen],
+		[thirteen_point1],
+		[thirteen_point2],
+		[thirteen_point3],
+		[thirteen_point4],
+		[thirteen_point5],
+		[thirteen_point6],
+		[fourteen],
+		[create_time],
+		[single_time],
+		[remaining_hours],
+		[injector_test_point_round],
+		[part_no],
+		[part_type],
+		[order_describe]
+		
+		)values(
+		#{bench_name},
+		#{type},
+		#{va_no},
+		#{kb_no},
+		#{sap_no},
+		#{bm_no},
+		#{work_center},
+		#{customer_project},
+		#{part_quantity},
+		#{preferred_operator},
+		#{operator},
+		#{work_hours},
+		#{deadline},
+		#{issue_date},
+		#{remark},
+		#{order_placer},
+		#{overtime},
+		#{one},
+		#{one_point1},
+		#{one_point2},
+		#{one_point3},
+		#{one_point4},
+		#{one_point5},
+		#{one_point6},
+		#{two},
+		#{two_point1},
+		#{two_point2},
+		#{two_point3},
+		#{two_point4},
+		#{three},
+		#{three_point1},
+		#{three_point2},
+		#{three_point3},
+		#{four},
+		#{four_point1},
+		#{four_point2},
+		#{four_point3},
+		#{four_point4},
+		#{four_point5},
+		#{four_point6},
+		#{four_point7},
+		#{five},
+		#{five_point1},
+		#{five_point2},
+		#{five_point3},
+		#{five_point4},
+		#{five_point5},
+		#{five_point6},
+		#{five_point7},
+		#{five_point8},
+		#{five_point9},
+		#{five_point10},
+		#{injector_round},
+		#{injector_num},
+		#{injector_time},
+		#{six},
+		#{six_point1},
+		#{six_point2},
+		#{six_point3},
+		#{six_point4},
+		#{seven},
+		#{seven_point1},
+		#{seven_point2},
+		#{seven_point3},
+		#{seven_point4},
+		#{seven_point5},
+		#{seven_point6},
+		#{eight},
+		#{eight_point1},
+		#{eight_point2},
+		#{eight_point3},
+		#{eight_point4},
+		#{nine},
+		#{nine_point1},
+		#{nine_point2},
+		#{ten},
+		#{ten_point1},
+		#{ten_point2},
+		#{eleven},
+		#{eleven_point1},
+		#{eleven_point2},
+		#{eleven_point3},
+		#{twelve},
+		#{twelve_point1},
+		#{twelve_point2},
+		#{twelve_point3},
+		#{twelve_point4},
+		#{thirteen},
+		#{thirteen_point1},
+		#{thirteen_point2},
+		#{thirteen_point3},
+		#{thirteen_point4},
+		#{thirteen_point5},
+		#{thirteen_point6},
+		#{fourteen},
+		#{create_time},
+		#{single_time},
+		#{work_hours},
+		#{injector_test_point_round},
+		#{part_no},
+		#{part_type},
+		#{order_describe}
+		)
+	</insert>
+	
+		
+	<select id="select_Order_Deails" resultType="work_order">
+		SELECT 
+			a.*,a.issue_date as issue_date1 ,a.deadline as deadline1
+		FROM [dbo].[work_order] a
+		<where>
+		
+			<if test="orderid != null and orderid != '' and orderid!=0">
+					AND orderid = #{orderid}
+			</if>
+			<if test="kb_no != null and kb_no != '' ">
+					AND kb_no = #{kb_no}
+			</if>
+			<if test="status != null and status != '' ">
+					AND status = #{status}
+			</if>
+		</where>
+	</select>
+	
+	<select id="select_work_order_list"  resultType="work_order">
+		select top ${pageSize} *  from work_order 
+		<where>
+		     <if test=" kb_no != ''and  kb_no!=null ">
+            		AND kb_no like concat(concat('%',#{kb_no}),'%')
+       		</if>
+       		<if test=" va_no != ''and  va_no!=null and va_no!='-1' ">
+            		AND va_no= #{va_no}
+       			</if>
+       			<if test=" order_placer != ''and  order_placer!=null and order_placer!='-1' ">
+            		AND order_placer = #{order_placer}
+       			</if>
+       			<if test=" status != ''and  status!=null and status!=-1 ">
+            		AND status = #{status}
+       			</if>
+		 AND orderid not in (select top (${pageSize} * (${pageIndex} -1)) orderid from work_order 
+			<where>
+		       <if test=" kb_no != ''and  kb_no!=null ">
+            		AND kb_no like concat(concat('%',#{kb_no}),'%')
+       		</if>
+       		<if test=" va_no != ''and  va_no!=null and va_no!='-1' ">
+            		AND va_no= #{va_no}
+       			</if>
+       			<if test=" order_placer != ''and  order_placer!=null and order_placer!='-1' ">
+            		AND order_placer = #{order_placer}
+       			</if>
+       				<if test=" status != ''and  status!=null and status!=-1 ">
+            		AND status = #{status}
+       			</if>
+		  </where>
+		 ORDER BY [create_time] DESC)
+		 </where>
+		   ORDER BY [create_time] DESC
+	</select>
+	
+	<select id="findWork_orderCount"  resultType="Integer">
+		select count(*) as count from work_order 
+		<where>
+		         <if test=" kb_no != ''and  kb_no!=null ">
+            		AND kb_no like concat(concat('%',#{kb_no}),'%')
+       		</if>
+       		<if test=" va_no != ''and  va_no!=null and va_no!='-1' ">
+            		AND va_no= #{va_no}
+       			</if>
+       			<if test=" order_placer != ''and  order_placer!=null and order_placer!='-1' ">
+            		AND order_placer = #{order_placer}
+       			</if>
+       				<if test=" status != ''and  status!=null and status!=-1 ">
+            		AND status = #{status}
+       			</if>
+		  </where> 
+	</select>
+		
+		
+		
+	<update id="update_work_order">
+		UPDATE dbo.work_order	
+		<trim prefix="set" suffixOverrides=",">
+			<if test="bench_name!= null">bench_name =#{bench_name},</if>
+			 <if test="type != null">type =#{type},</if>
+			<if test="va_no != null">va_no =#{va_no},</if>
+			<if test="kb_no != null">kb_no =#{kb_no},</if>
+			<if test="sap_no != null">sap_no =#{sap_no},</if>
+			<if test="bm_no != null">bm_no =#{bm_no},</if>
+			<if test="work_center != null">work_center =#{work_center},</if>
+			<if test="customer_project != null">customer_project =#{customer_project},</if>
+			<if test="part_quantity != null">part_quantity =#{part_quantity},</if>
+			<if test="preferred_operator != null">preferred_operator =#{preferred_operator},</if>
+			<if test="operator != null">operator =#{operator},</if>
+			<if test="work_hours != null">work_hours =#{work_hours},</if>
+			<if test="deadline1 != null">deadline =#{deadline1},</if>
+			<if test="issue_date1 != null">issue_date =#{issue_date1},</if>
+			<if test="remark != null">remark =#{remark},</if>
+			<if test="status != null">status =#{status},</if>
+			<if test="order_placer != null">order_placer =#{order_placer},</if>
+			<if test="overtime != null">overtime =#{overtime},</if>
+			<if test="fourteen != null">fourteen =#{fourteen},</if>
+			<if test="single_time != null">single_time =#{single_time},</if>
+			<if test="part_no != null">part_no =#{part_no},</if>
+			<if test="part_type != null">part_type =#{part_type},</if>
+			<if test="order_describe != null">order_describe =#{order_describe},</if>
+		
+			one =#{one},
+			one_point1 =#{one_point1},
+			one_point2 =#{one_point2},
+		
+			one_point3 =#{one_point3},
+			one_point4 =#{one_point4},
+			one_point5 =#{one_point5},
+			one_point6 =#{one_point6},
+			two =#{two},
+			two_point1 =#{two_point1},
+			two_point2 =#{two_point2},
+			two_point3 =#{two_point3},
+			two_point4 =#{two_point4},
+			three =#{three},
+			three_point1 =#{three_point1},
+			three_point2 =#{three_point2},
+			three_point3 =#{three_point3},
+			
+			four =#{four},
+			four_point1 =#{four_point1},
+			four_point2 =#{four_point2},
+			four_point3 =#{four_point3},
+			four_point4 =#{four_point4},
+			four_point5 =#{four_point5},
+			four_point6 =#{four_point6},
+			four_point7 =#{four_point7},
+			five =#{five},
+			five_point1 =#{five_point1},
+			five_point2 =#{five_point2},
+			five_point3 =#{five_point3},
+			five_point4 =#{five_point4},
+			five_point5 =#{five_point5},
+			five_point6 =#{five_point6},
+			five_point7 =#{five_point7},
+			five_point8 =#{five_point8},
+			five_point9 =#{five_point9},
+			five_point10 =#{five_point10},
+			injector_round =#{injector_round},
+			injector_num =#{injector_num},
+			injector_time =#{injector_time},
+			six =#{six},
+			six_point1 =#{six_point1},
+			six_point2 =#{six_point2},
+			six_point3 =#{six_point3},
+			six_point4 =#{six_point4},
+			seven =#{seven},
+			seven_point1 =#{seven_point1},
+			seven_point2 =#{seven_point2},
+			seven_point3 =#{seven_point3},
+			seven_point4 =#{seven_point4},
+			seven_point5 =#{seven_point5},
+			seven_point6 =#{seven_point6},
+			eight =#{eight},
+			eight_point1 =#{eight_point1},
+			eight_point2 =#{eight_point2},
+			eight_point3 =#{eight_point3},
+			eight_point4 =#{eight_point4},
+			nine =#{nine},
+			nine_point1 =#{nine_point1},
+			nine_point2 =#{nine_point2},
+			ten =#{ten},
+			ten_point1 =#{ten_point1},
+			ten_point2 =#{ten_point2},
+			eleven =#{eleven},
+			eleven_point1 =#{eleven_point1},
+			eleven_point2 =#{eleven_point2},
+			eleven_point3 =#{eleven_point3},
+			twelve =#{twelve},
+			twelve_point1 =#{twelve_point1},
+			twelve_point2 =#{twelve_point2},
+			twelve_point3 =#{twelve_point3},
+			twelve_point4 =#{twelve_point4},
+			thirteen =#{thirteen},
+			thirteen_point1 =#{thirteen_point1},
+			thirteen_point2 =#{thirteen_point2},
+			thirteen_point3 =#{thirteen_point3},
+			thirteen_point4 =#{thirteen_point4},
+			thirteen_point5 =#{thirteen_point5},
+			thirteen_point6 =#{thirteen_point6},
+			injector_test_point_round=#{injector_test_point_round}
+		 </trim>		
+		WHERE orderid = #{orderid}
+	</update>		
+
+	
+	<update id="update_work">
+		UPDATE dbo.work_order	
+		<trim prefix="set" suffixOverrides=",">
+			<if test="remaining_hours!= null">remaining_hours =#{remaining_hours},</if>
+			<if test="single_hours!= null">single_hours =#{single_hours},</if>
+			<if test="status != null">status =#{status},</if>
+			<if test="operator != null">operator =#{operator},</if>
+			<if test="close_hours != null">close_hours =#{close_hours},</if>
+			<if test="single_time != null">single_time =#{single_time},</if>
+		 </trim>		
+		WHERE kb_no = #{kb_no}
+	</update>		
+	
+	<!-- 排单详情的处理 -->
+	<select id="select_Scheduling_Deails" resultType="work_order">
+		SELECT 
+			a.*,a.issue_date as issue_date1 ,a.deadline as deadline1
+		FROM [dbo].[work_order] a
+		<where>
+			<if test="orderid != null and orderid != '' and orderid!=0">
+					AND orderid = #{orderid}
+			</if>
+			<if test="kb_no != null and kb_no != '' ">
+					AND kb_no = #{kb_no}
+			</if>
+			<if test="status != null and status != '' ">
+					AND status = #{status}
+			</if>
+		</where>
+	</select>	
+	
+	<!-- 所有执行中的订单 -->
+	<select id="select_performWork_order_list"  resultType="work_order">
+		select top ${pageSize} *  from work_order 
+		<where>
+		     <if test=" kb_no != ''and  kb_no!=null ">
+            		AND kb_no like concat(concat('%',#{kb_no}),'%')
+       		</if>
+       		<if test=" va_no != ''and  va_no!=null and va_no!='-1' ">
+            		AND va_no= #{va_no}
+       			</if>
+       			<if test=" order_placer != ''and  order_placer!=null and order_placer!='-1' ">
+            		AND (order_placer = #{order_placer} OR operator = #{order_placer})
+       			</if>
+       			<if test=" status != ''and  status!=null and status!=-1 ">
+            		AND status in(1,2,3)
+       			</if>
+		 AND orderid not in (select top (${pageSize} * (${pageIndex} -1)) orderid from work_order 
+			<where>
+		       <if test=" kb_no != ''and  kb_no!=null ">
+            		AND kb_no like concat(concat('%',#{kb_no}),'%')
+       		</if>
+       		<if test=" va_no != ''and  va_no!=null and va_no!='-1' ">
+            		AND va_no= #{va_no}
+       			</if>
+       			<if test=" order_placer != ''and  order_placer!=null and order_placer!='-1' ">
+            		AND (order_placer = #{order_placer} OR operator = #{order_placer})
+       			</if>
+       			<if test=" status != ''and  status!=null and status!=-1 ">
+            		AND status in(1,2,3)
+       			</if>
+		  </where>
+		 ORDER BY [create_time] DESC)
+		 </where>
+		   ORDER BY [create_time] DESC
+	</select>
+	<select id="findPerformWork_orderCount"  resultType="Integer">
+		select count(*) as count from work_order 
+		<where>
+		         <if test=" kb_no != ''and  kb_no!=null ">
+            		AND kb_no like concat(concat('%',#{kb_no}),'%')
+       		</if>
+       		<if test=" va_no != ''and  va_no!=null and va_no!='-1' ">
+            		AND va_no= #{va_no}
+       			</if>
+       			<if test=" order_placer != ''and  order_placer!=null and order_placer!='-1' ">
+            		AND order_placer = #{order_placer}
+       			</if>
+       				<if test=" status != ''and  status!=null and status!=-1 ">
+            		AND status  in(1,2,3)
+       			</if>
+		  </where> 
+	</select>
+	
+	
+	<delete id="deleteOrder">
+		delete from work_order where orderid =#{orderid}
+	</delete>
+	
+	
+	<!-- 查询该VA下是否已经生成过订单， -->
+		<select id="selectVAOrderDeails" resultType="work_order">
+		SELECT 
+			TOP 1 * from work_order  where  va_no=#{0} order by orderid desc;
+	
+	</select>
+	
+	
+	
+		<!-- 所有执行中的订单 -->
+	<select id="findallWorkSheetOrderList"  resultType="allWorkSheet">
+		select top ${limit} *  from scheduling_record 
+		<where>
+		   <if test=" workers != ''and  workers !=null and workers !='-1' ">
+            		AND workers = #{workers}
+       			</if>
+       			<if test=" start_time != ''and  start_time !=null  ">
+            		AND scheduling_day	between #{start_time} and #{end_time}
+       			</if>	
+		 AND scheduling_id not in (select top (${limit} * (${page} -1)) scheduling_id from scheduling_record 
+			<where>
+		     <if test=" workers != ''and  workers !=null and workers !='-1' ">
+            		AND workers = #{workers}
+       			</if>
+       			<if test=" start_time != ''and  start_time !=null  ">
+            		AND scheduling_day	between #{start_time} and #{end_time}
+       			</if>	
+		  </where>
+		 ORDER BY [scheduling_id] DESC)
+		 </where> 
+		   ORDER BY [scheduling_id] DESC
+	</select>
+	<select id="findallWorkSheetListCount"  resultType="Integer">
+		select count(*) as count from scheduling_record 
+		<where>
+       			<if test=" workers != ''and  workers !=null and workers !='-1' ">
+            		AND workers = #{workers}
+       			</if>
+       			<if test=" start_time != ''and  start_time !=null  ">
+            		AND scheduling_day	between #{start_time} and #{end_time}
+       			</if>	
+		  </where> 
+	</select>
+	
+	
+</mapper>

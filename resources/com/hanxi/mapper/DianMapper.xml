@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanxi.dao.DianDao">
+	<!-- 
+	 select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=7 AND [avgtest_bench] ='CI4000 F1' AND [avgselectt] ='CRIN25L/C' ORDER BY [id] DESC 
+	 -->
+	<select id="finddian1" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='CI4000 F1' AND [avgselectt] ='CRIN25L/C' ORDER BY [avgcejieshijian] DESC
+	</select>
+	<select id="finddian2" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='CI4000 F2' AND [avgselectt] ='CRIN25L/C' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian3" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='ESS F6' AND [avgselectt] ='CRIN25L/C' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian4" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='CI4000 F1' AND [avgselectt] ='CRIN3-20/18' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian5" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='CI4000 F2' AND [avgselectt] ='CRIN3-20/18' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian6" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='ESS F6' AND [avgselectt] ='CRIN3-20/18' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian7" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='CI4000 F1' AND [avgselectt] ='CRIN2-16' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian8" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='CI4000 F2' AND [avgselectt] ='CRIN2-16' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian9" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='ESS F6' AND [avgselectt] ='CRIN2-16' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian10" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='CI4000 F3' AND [avgselectt] ='CRI2-20/18' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian11" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='CI4000 F4' AND [avgselectt] ='CRI2-20/18' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian12" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='ESS F8(NEW)' AND [avgselectt] ='CRI2-20/18' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian13" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='CI4000 F2' AND [avgselectt] ='CRI2-16' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian14" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='CI4000 F3' AND [avgselectt] ='CRI2-16' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian15" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='CI4000 F4' AND [avgselectt] ='CRI2-16' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian16" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='ESS F6' AND [avgselectt] ='CRI2-16' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian17" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='ESS F8(NEW)' AND [avgselectt] ='CRI2-16' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian18" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='CI4000 F2' AND [avgselectt] ='CRI1-20/18/16' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian19" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='CI4000 F3' AND [avgselectt] ='CRI1-20/18/16' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian20" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='CI4000 F4' AND [avgselectt] ='CRI1-20/18/16' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian21" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='ESS F6' AND [avgselectt] ='CRI1-20/18/16' ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="finddian22" resultType="com.hanxi.entity.Celiangtubiao">
+	select TOP(1)* from [celiangtubiao] where DateDiff(dd,avgcejieshijian,getdate())&lt;=30 AND [avgtest_bench] ='ESS F8(NEW)' AND [avgselectt] ='CRI1-20/18/16' ORDER BY [avgcejieshijian] DESC 
+	</select>
+</mapper>

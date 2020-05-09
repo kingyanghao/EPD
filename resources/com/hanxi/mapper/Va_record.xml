@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.hanxi.dao.VaRecordDao">
+		<insert id="insert_va_record"  parameterType="va_record" useGeneratedKeys="true" >
+			insert into [dbo].[va_record] (
+			[va_no],
+			[va_name],
+			[va_worknum],
+			[va_create],
+			[num],
+			[year]
+			)values(#{va_no},
+			#{va_name},
+			#{va_worknum},
+			#{va_create},
+			#{num},
+			#{year}
+			)
+		</insert>
+	
+	
+	<select id="select_va_record_list" parameterType="String" resultType="va_record">
+		SELECT 
+			a.*
+		FROM [dbo].[va_record] a
+		<where>
+		
+			<if test="va_name != null and va_name != ''">
+					AND va_name = #{va_name}
+			</if>
+			<if test="va_worknum != null and va_worknum != '' ">
+					AND va_worknum = #{va_worknum}
+			</if>
+		
+		</where>
+		order by [va_id] desc
+	</select>
+	
+		<select id="select_va_record_count" resultType="java.lang.String">
+		SELECT 
+			max(num)
+		FROM [dbo].[va_record] a where a.year = #{year}
+	
+		
+	</select>
+	
+	
+	
+	
+</mapper>

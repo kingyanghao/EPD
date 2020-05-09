@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanxi.dao.TaijiaDao">
+	<select id="findTaijia" resultType="com.hanxi.entity.Taijia">
+		select * from [dbo].[taijia]  
+	</select>
+	<select id="findRijian" resultType="com.hanxi.entity.daily_check" parameterType="com.hanxi.entity.daily_check">
+		select * from [dbo].[daily_check] where bench_name=#{bench_name} and convert(varchar,check_time,120) like #{check_time}
+	</select>
+	<select id="findYuejian" resultType="com.hanxi.entity.month_check" parameterType="com.hanxi.entity.month_check">
+		select * from [dbo].[monthly_check] where bench_name=#{bench_name} and check_time=#{check_time}
+	</select>
+	<select id="findNianjian" resultType="com.hanxi.entity.year_check" parameterType="com.hanxi.entity.year_check">
+		select * from [dbo].[yearly_check] where bench_name=#{bench_name} and year=#{year}
+	</select>
+	<select id="findOneTaijia" parameterType="java.lang.String" resultType="com.hanxi.entity.Taijia">
+		select * from [dbo].[taijia] where [taijiamingcheng]=#{taijiamingcheng}
+	</select>
+	<update id="xiugai" parameterType="com.hanxi.entity.Taijia" >
+		update [dbo].[taijia]	set
+									 [taijiazhuangtai]=#{taijiazhuangtai},
+									 [shifoudianjian]=#{shifoudianjian}
+									where  [taijiamingcheng]=#{taijiamingcheng}
+	</update>
+	<select id="findtiaoxiu" parameterType="java.lang.String" resultType="com.hanxi.entity.paid_leave">
+		select * from [paid_leave]  where [paid_leave_day] = Convert(varchar(100),getdate(),23) and paid_leave_name=#{username}
+	</select>
+</mapper>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+    
+	<!-- 开启springmvc对全注解支持， -->
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<!-- json属性设置 -->
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="objectMapper">
+					<bean class="com.fasterxml.jackson.databind.ObjectMapper">
+						<property name="dateFormat">
+							<!-- 处理responseBody 里面日期类型 -->
+							<bean class="java.text.SimpleDateFormat">
+								<constructor-arg type="java.lang.String" value="yyyy-MM-dd" />
+							</bean>
+						</property>
+						<property name="serializationInclusion">
+							<!-- 为null字段时不显示 -->
+							<value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>
+						</property>
+					</bean>
+				</property>
+			</bean>
+		</mvc:message-converters>
+
+	</mvc:annotation-driven>
+
+	<!-- 开启默认的静态资源访问控制器 -->
+	 <mvc:default-servlet-handler />
+	<!-- 开启MVC注解扫描 -->
+	<mvc:annotation-driven/>
+	<!-- 组件扫描路径 -->
+	<context:component-scan base-package="com.hanxi"></context:component-scan>
+
+	<!-- 为了处理返回的JSON数据的编码，默认是ISO-8859-1的，设置为UTF-8 -->
+	<bean id="mappingJacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+<!-- 配置文件上传解析器：id="multipartResolver",这个id不能乱写 设置一个maxUploadSize属性，就是上传文件的大小 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+<!--         设定默认编码 -->
+        <property name="defaultEncoding" value="UTF-8" />
+<!--         设定文件上传的最大值5MB，5*1024*1024 -->
+        <property name="maxUploadSize" value="200000000" />
+        <property name="maxInMemorySize" value="40960" />
+    </bean>
+   <!-- 
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/login/login.do"/>
+			<mvc:exclude-mapping path="/login/toLogin.do"/>
+			<bean class="com.hanxi.interceptor.LoginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+    -->
+	<!-- 设置视图路径的前后缀，该配置可以让我们写视图路径的时候更简单。 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- prefix：前缀 suffix：后缀 -->
+		<property name="prefix" value="/WEB-INF/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+</beans>

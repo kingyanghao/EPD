@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanxi.dao.LiyonglueDao">
+	<select id="findTiaoxiu" parameterType="com.hanxi.entity.calendarOptions" resultType="int">
+		SELECT count(*) FROM [dbo].[calendar_options] WHERE coid in(SELECT coid FROM [dbo].[calendar_options] WHERE c_week='星期一' or c_week='星期二' 
+		or c_week='星期三' or c_week='星期四'or c_week='星期五') and type='1' and year=#{year} and month=#{month} and day  &lt;=#{day}
+	</select>
+	<select id="findJiaban" parameterType="com.hanxi.entity.calendarOptions" resultType="int">
+		SELECT count(*) FROM [dbo].[calendar_options] WHERE coid in(SELECT coid FROM [dbo].[calendar_options] WHERE c_week='星期日' or c_week='星期六')
+		 and type='2' and year=#{year} and month=#{month} and day &lt;=#{day}
+	</select>
+	
+	<select id="finddown1" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='CI4000 F1' and year=#{year} and month=#{month} and workorrest=2 and day &lt;=#{day}
+	</select>
+	<select id="findrun1" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000 F1' and year=#{year} and month=#{month} and scheduling_date &lt;=#{scheduling_date} 
+	</select>
+	<select id="finddown2" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='CI4000 F2' and year=#{year} and month=#{month} and workorrest=2 and day &lt;=#{day}
+	</select>
+	<select id="findrun2" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000 F2' and year=#{year} and month=#{month} and scheduling_date &lt;=#{scheduling_date}
+	</select>
+	<select id="finddown3" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='CI4000 F3' and year=#{year} and month=#{month} and workorrest=2 and day &lt;=#{day}
+	</select>
+	<select id="findrun3" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000 F3' and year=#{year} and month=#{month} and scheduling_date &lt;=#{scheduling_date}
+	</select>
+	<select id="finddown4" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='CI4000 F4' and year=#{year} and month=#{month} and workorrest=2 and day &lt;=#{day}
+	</select>
+	<select id="findrun4" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000 F4' and year=#{year} and month=#{month} and scheduling_date &lt;=#{scheduling_date}
+	</select>
+	<select id="finddown5" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='CI4000-RAK F7' and year=#{year} and month=#{month} and workorrest=2 and day &lt;=#{day}
+	</select>
+	<select id="findrun5" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000-RAK F7' and year=#{year} and month=#{month} and scheduling_date &lt;=#{scheduling_date}
+	</select>
+	<select id="finddown6" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='ESS F6' and year=#{year} and month=#{month} and workorrest=2 and day &lt;=#{day}
+	</select>
+	<select id="findrun6" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='ESS F6' and year=#{year} and month=#{month} and scheduling_date &lt;=#{scheduling_date}
+	</select>
+	<select id="finddown7" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='ESS F8(NEW)' and year=#{year} and month=#{month} and workorrest=2 and day &lt;=#{day}
+	</select>
+	<select id="findrun7" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='ESS F8(NEW)' and year=#{year} and month=#{month} and scheduling_date &lt;=#{scheduling_date}
+	</select>
+	<select id="finddown8" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='Nozzle flow rate' and year=#{year} and month=#{month} and workorrest=2 and day &lt;=#{day}
+	</select>
+	<select id="findrun8" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='Nozzle flow rate' and year=#{year} and month=#{month} and scheduling_date &lt;=#{scheduling_date}
+	</select>
+	<select id="finddown9" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='Nozzle Pdoe' and year=#{year} and month=#{month} and workorrest=2 and day &lt;=#{day}
+	</select>
+	<select id="findrun9" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='Nozzle Pdoe' and year=#{year} and month=#{month} and scheduling_date &lt;=#{scheduling_date}
+	</select>
+	<select id="finddown10" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='HSM' and year=#{year} and month=#{month} and workorrest=2 and day &lt;=#{day}
+	</select>
+	<select id="findrun10" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='HSM' and year=#{year} and month=#{month} and scheduling_date &lt;=#{scheduling_date}
+	</select>
+	
+	
+	<select id="findyiyang1" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='CI4000 F1' and weixiudan1.year=#{year} and weixiudan1.month=#{month}
+	</select>
+	
+	<select id="findyiyang2" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='CI4000 F2' and weixiudan1.year=#{year} and weixiudan1.month=#{month}
+	</select>
+	
+	<select id="findyiyang3" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='CI4000 F3' and weixiudan1.year=#{year} and weixiudan1.month=#{month}
+	</select>
+	
+	<select id="findyiyang4" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='CI4000 F4' and weixiudan1.year=#{year} and weixiudan1.month=#{month}
+	</select>
+	
+	<select id="findyiyang5" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='CI4000-RAK F7' and weixiudan1.year=#{year} and weixiudan1.month=#{month}
+	</select>
+	
+	<select id="findyiyang6" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='ESS F6' and weixiudan1.year=#{year} and weixiudan1.month=#{month}
+	</select>
+	
+	<select id="findyiyang7" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='ESS F8(NEW)' and weixiudan1.year=#{year} and weixiudan1.month=#{month}
+	</select>
+	
+	<select id="findyiyang8" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='Nozzle flow rate' and weixiudan1.year=#{year} and weixiudan1.month=#{month}
+	</select>
+	
+	<select id="findyiyang9" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='Nozzle Pdoe' and weixiudan1.year=#{year} and weixiudan1.month=#{month}
+	</select>
+	
+	<select id="findyiyang10" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='HSM' and weixiudan1.year=#{year} and weixiudan1.month=#{month}
+	</select>
+	
+	<!-- benyue 
+	<select id="findTiaoxiu1" parameterType="com.hanxi.entity.calendarOptions" resultType="int">
+		SELECT count(*) FROM [dbo].[calendar_options] WHERE coid in(SELECT coid FROM [dbo].[calendar_options] WHERE c_week='星期一' or c_week='星期二' 
+		or c_week='星期三' or c_week='星期四'or c_week='星期五') and type='1' and year=#{year} and month=#{month} and day<#{day}
+	</select>
+	-->
+	<select id="ffindTiaoxiu" parameterType="com.hanxi.entity.calendarOptions" resultType="int">
+		SELECT count(*) FROM [dbo].[calendar_options] WHERE coid in(SELECT coid FROM [dbo].[calendar_options] WHERE c_week='星期一' or c_week='星期二' 
+		or c_week='星期三' or c_week='星期四'or c_week='星期五') and type='1' and year=#{year} and calendar_time &lt;=#{calendar_time}
+	</select>
+	
+	<select id="ffindJiaban" parameterType="com.hanxi.entity.calendarOptions" resultType="int">
+		SELECT count(*) FROM [dbo].[calendar_options] WHERE coid in(SELECT coid FROM [dbo].[calendar_options] WHERE c_week='星期日' or c_week='星期六')
+		 and type='2' and year=#{year} and calendar_time &lt;=#{calendar_time}
+	</select>
+	
+	<select id="ffinddown1" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='CI4000 F1' and year=#{year} and ymd &lt;=#{ymd} and workorrest=2 
+	</select>
+	<select id="ffindrun1" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000 F1' and year=#{year} and scheduling_date &lt;=#{scheduling_date}
+	</select>
+	<select id="ffinddown2" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='CI4000 F2' and year=#{year} and ymd &lt;=#{ymd} and workorrest=2 
+	</select>
+	<select id="ffindrun2" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000 F2' and year=#{year} and  scheduling_date &lt;=#{scheduling_date}
+	</select>
+	<select id="ffinddown3" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='CI4000 F3' and year=#{year} and ymd &lt;=#{ymd} and workorrest=2 
+	</select>
+	<select id="ffindrun3" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000 F3' and year=#{year} and scheduling_date &lt;=#{scheduling_date}
+	</select>
+	<select id="ffinddown4" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='CI4000 F4' and year=#{year} and ymd &lt;=#{ymd} and workorrest=2 
+	</select>
+	<select id="ffindrun4" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000 F4' and year=#{year}  and scheduling_date &lt;=#{scheduling_date}
+	</select>
+	<select id="ffinddown5" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='CI4000-RAK F7' and year=#{year} and ymd &lt;=#{ymd} and workorrest=2 
+	</select>
+	<select id="ffindrun5" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000-RAK F7' and year=#{year} and scheduling_date &lt;=#{scheduling_date}
+	</select>
+	<select id="ffinddown6" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='ESS F6' and year=#{year} and ymd &lt;=#{ymd} and workorrest=2 
+	</select>
+	<select id="ffindrun6" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='ESS F6' and year=#{year} and scheduling_date &lt;=#{scheduling_date}
+	</select>
+	<select id="ffinddown7" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='ESS F8(NEW)' and year=#{year} and ymd &lt;=#{ymd} and workorrest=2 
+	</select>
+	<select id="ffindrun7" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='ESS F8(NEW)' and year=#{year} and scheduling_date &lt;=#{scheduling_date}
+	</select>
+	<select id="ffinddown8" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='Nozzle flow rate' and year=#{year} and ymd &lt;=#{ymd} and workorrest=2 
+	</select>
+	<select id="ffindrun8" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='Nozzle flow rate' and year=#{year} and scheduling_date &lt;=#{scheduling_date}
+	</select>
+	<select id="ffinddown9" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='Nozzle Pdoe' and year=#{year}  and ymd &lt;=#{ymd} and workorrest=2 
+	</select>
+	<select id="ffindrun9" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='Nozzle Pdoe' and year=#{year} and scheduling_date &lt;=#{scheduling_date}
+	</select>
+	<select id="ffinddown10" resultType="com.hanxi.entity.Weixiu" parameterType="com.hanxi.entity.Weixiu">
+		select * from weixiudan1 where shebeimingcheng ='HSM' and year=#{year}  and ymd &lt;=#{ymd} and workorrest=2 
+	</select>
+	<select id="ffindrun10" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='HSM' and year=#{year} and scheduling_date &lt;=#{scheduling_date}
+	</select>
+	
+	<select id="ffindyiyang1" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='CI4000 F1' and weixiudan1.year=#{year} 
+	</select>
+	
+	<select id="ffindyiyang2" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='CI4000 F2' and weixiudan1.year=#{year} 
+	</select>
+	
+	<select id="ffindyiyang3" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='CI4000 F3' and weixiudan1.year=#{year} 
+	</select>
+	
+	<select id="ffindyiyang4" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='CI4000 F4' and weixiudan1.year=#{year} 
+	</select>
+	
+	<select id="ffindyiyang5" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='CI4000-RAK F7' and weixiudan1.year=#{year} 
+	</select>
+	
+	<select id="ffindyiyang6" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='ESS F6' and weixiudan1.year=#{year}
+	</select>
+	
+	<select id="ffindyiyang7" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='ESS F8(NEW)' and weixiudan1.year=#{year}
+	</select>
+	
+	<select id="ffindyiyang8" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='Nozzle flow rate' and weixiudan1.year=#{year}
+	</select>
+	
+	<select id="ffindyiyang9" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='Nozzle Pdoe' and weixiudan1.year=#{year}
+	</select>
+	
+	<select id="ffindyiyang10" parameterType="com.hanxi.entity.scheduling_record" resultType="com.hanxi.entity.Weixiu">
+select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [calendar_options],[weixiudan1] where calendar_options.year=weixiudan1.year and calendar_options.month=weixiudan1.month and calendar_options.day=weixiudan1.day and shebeimingcheng='HSM' and weixiudan1.year=#{year}
+	</select>
+	
+	<!-- 月正常工作时间 -->
+	
+	<select id="fffindrun1" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000 F1' and year=#{year} and month=#{month} and scheduling_date &lt;=#{scheduling_date} and work_overtime=0
+	</select>
+	<select id="fffindrun2" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000 F2' and year=#{year} and month=#{month} and scheduling_date &lt;=#{scheduling_date} and work_overtime=0
+	</select>
+	<select id="fffindrun3" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000 F3' and year=#{year} and month=#{month} and scheduling_date &lt;=#{scheduling_date} and work_overtime=0
+	</select>
+	<select id="fffindrun4" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000 F4' and year=#{year} and month=#{month} and scheduling_date &lt;=#{scheduling_date} and work_overtime=0
+	</select>
+	<select id="fffindrun5" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000-RAK F7' and year=#{year} and month=#{month} and scheduling_date &lt;=#{scheduling_date} and work_overtime=0
+	</select>
+	<select id="fffindrun6" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='ESS F6' and year=#{year} and month=#{month} and scheduling_date &lt;=#{scheduling_date} and work_overtime=0
+	</select>
+	<select id="fffindrun7" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='ESS F8(NEW)' and year=#{year} and month=#{month} and scheduling_date &lt;=#{scheduling_date} and work_overtime=0
+	</select>
+	<select id="fffindrun8" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='Nozzle flow rate' and year=#{year} and month=#{month} and scheduling_date &lt;=#{scheduling_date} and work_overtime=0
+	</select>
+	<select id="fffindrun9" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='Nozzle Pdoe' and year=#{year} and month=#{month} and scheduling_date &lt;=#{scheduling_date} and work_overtime=0
+	</select>
+	<select id="fffindrun10" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+	</select>
+	
+	
+	
+		<!-- 年正常工作时间 -->
+	<select id="ffffindrun1" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000 F1' and year=#{year} and scheduling_date &lt;=#{scheduling_date} and work_overtime=0
+	</select>
+	<select id="ffffindrun2" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000 F2' and year=#{year} and  scheduling_date &lt;=#{scheduling_date} and work_overtime=0
+	</select>
+	<select id="ffffindrun3" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000 F3' and year=#{year} and scheduling_date &lt;=#{scheduling_date} and work_overtime=0
+	</select>
+	<select id="ffffindrun4" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000 F4' and year=#{year}  and scheduling_date &lt;=#{scheduling_date} and work_overtime=0
+	</select>
+	<select id="ffffindrun5" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='CI4000-RAK F7' and year=#{year} and scheduling_date &lt;=#{scheduling_date} and work_overtime=0
+	</select>
+	<select id="ffffindrun6" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='ESS F6' and year=#{year} and scheduling_date &lt;=#{scheduling_date} and work_overtime=0
+	</select>
+	<select id="ffffindrun7" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='ESS F8(NEW)' and year=#{year} and scheduling_date &lt;=#{scheduling_date} and work_overtime=0
+	</select>
+	<select id="ffffindrun8" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='Nozzle flow rate' and year=#{year} and scheduling_date &lt;=#{scheduling_date} and work_overtime=0
+	</select>
+	<select id="ffffindrun9" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='Nozzle Pdoe' and year=#{year} and scheduling_date &lt;=#{scheduling_date} and work_overtime=0
+	</select>
+	<select id="ffffindrun10" resultType="com.hanxi.entity.scheduling_record" parameterType="com.hanxi.entity.scheduling_record">
+		select * from scheduling_record where bench_name='HSM' and year=#{year} and scheduling_date &lt;=#{scheduling_date} and work_overtime=0
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+<!-- select distinct id,shebeimingcheng,guzhangshichang,workorrest  from [scheduling_record],[weixiudan1] where scheduling_record.year=weixiudan1.year and scheduling_record.month=weixiudan1.month and Datename(day,scheduling_record.scheduling_date) =weixiudan1.day and
+shebeimingcheng='ESS F8(NEW)' and bench_name='ESS F8(NEW)' and weixiudan1.year='2019' and weixiudan1.month='10' -->
+</mapper>

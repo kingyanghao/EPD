@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanxi.dao.CalendarOptionsDao">
+<select id="findAllCalendarList"  resultType="calendarOptions">
+		select top ${limit} *  from calendar_options 
+		<where>
+		 coid not in (select top (${limit}*(${page}-1)) coid from calendar_options ORDER BY [create_time] DESC)
+		 </where>
+		   ORDER BY [create_time] DESC
+	</select>
+	
+	<select id="findAllCalendarListCount"  resultType="Integer">
+		select count(*) as count from calendar_options 
+		
+	</select>
+
+<delete id="deleteCalendaOrder">
+		delete from calendar_options where coid =#{coid}
+	</delete>
+	
+<insert id="addcal"  parameterType="calendarOptions" useGeneratedKeys="true" >
+		insert into [dbo].[calendar_options] (
+		[calendar_time],
+		[year],
+		[month],
+		[day],
+		[type],
+		[create_time],
+		[c_week],
+		[week]
+		)
+		values(#{calendar_time},
+		#{year},
+		#{month},
+		#{day},
+		#{type},
+		#{create_time},
+		#{c_week},
+		#{week}
+	
+		)
+	</insert>
+	
+	
+	
+	<select id="selectcal" resultType="calendarOptions">
+		SELECT a.* FROM [dbo].[calendar_options] a where a.calendar_time = #{calendar_time}
+	</select>	
+	
+
+	<select id="selectcalList" resultType="String">
+		SELECT calendar_time FROM [EPD].[dbo].[calendar_options] where calendar_time BETWEEN #{0} and #{1} and type=#{2} order by [coid] desc
+	</select>
+
+
+	<select id="selectcalSearchList" resultType="String">
+		SELECT calendar_time FROM [EPD].[dbo].[calendar_options] 
+		<where>
+		   <if test=" year != ''and  year !=null ">
+            	AND year =#{year}
+       		</if>
+		   <if test=" month != ''and  month !=null ">
+            	AND month =#{month}
+       		</if>
+		   <if test=" week != ''and  week !=null ">
+            	AND week =#{week}
+       		</if>
+		   <if test=" type != ''and  type !=null ">
+            	AND type =#{type}
+       		</if>
+		  </where>
+		
+	</select>
+
+
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.hanxi.dao.KbRecordDao">
+		<insert id="insert_kb_record"  parameterType="kb_record" useGeneratedKeys="true" >
+			insert into [dbo].[kb_record] (
+			[kb_no],
+			[kb_name],
+			[create_time],
+			[kb_account],
+			[kb_year],
+			[kb_num],
+			[kb_va]
+			
+			)
+			values(
+			#{kb_no},
+			#{kb_name},
+			#{create_time},
+			#{kb_account},
+			#{kb_year},
+			#{kb_num},
+			#{kb_va}
+			)
+		</insert>
+	
+	
+	<select id="select_kb_record_list"  resultType="kb_record">
+		SELECT 
+			a.*
+		FROM [dbo].[kb_record] a where kb_status=0 order by [kb_num] desc
+		
+		
+	</select>
+	
+		<select id="select_kb_record_count" resultType="java.lang.String">
+		SELECT 
+			max(kb_num)
+		FROM [dbo].[kb_record] a where a.kb_year = #{kb_year}
+	
+		
+	</select>
+	
+	<update id="update_kb_record">
+		UPDATE [dbo].[kb_record]
+		<trim prefix="set" suffixOverrides=",">
+			<if test="kb_status != null ">kb_status =#{kb_status},</if>
+		 </trim>	
+		<where>
+			<if test="kb_no != null and kb_no != ''">
+					AND kb_no = #{kb_no}
+			</if>
+		</where>
+	</update>
+	
+	
+		<select id="select_va_kb_record_list"  resultType="kb_record">
+		SELECT 
+			a.*
+		FROM [dbo].[kb_record] a where kb_status=0 and kb_va=#{0}  order by [kb_num] desc
+		
+		
+	</select>
+	
+</mapper>

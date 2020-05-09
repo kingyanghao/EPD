@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanxi.dao.PaidLeaveDao">
+<!-- <select id="findAllPaid_leaveList"  resultType="paid_leave">
+		select top ${limit} *  from paid_leave 
+		<where>
+		     <if test=" paid_leave_name != ''and  paid_leave_name!=null ">
+            	AND paid_leave_name like concat(concat('%',#{paid_leave_name}),'%')
+       		</if>
+       		<if test=" paid_leave_day != ''and  paid_leave_day!=null ">
+            		AND paid_leave_day= #{paid_leave_day}
+       		</if>
+       			
+       		
+		 AND paid not in (select top (${limit}*(${page}-1)) paid from paid_leave 
+			<where>
+		       <if test=" paid_leave_name != ''and  paid_leave_name!=null ">
+            	AND paid_leave_name like concat(concat('%',#{paid_leave_name}),'%')
+       		</if>
+       		<if test=" paid_leave_day != ''and  paid_leave_day!=null ">
+            		AND paid_leave_day= #{paid_leave_day}
+       		</if>
+       				
+		  </where>
+		 ORDER BY [paid_leave_create] DESC)
+		 </where>
+		   ORDER BY [paid_leave_create] DESC
+	</select>
+	
+	<select id="findAllPaid_leaveListCount"  resultType="Integer">
+		select count(*) as count from paid_leave 
+		<where>
+		       <if test=" paid_leave_name != ''and  paid_leave_name!=null ">
+            	AND paid_leave_name like concat(concat('%',#{paid_leave_name}),'%')
+       		</if>
+       		<if test=" paid_leave_day != ''and  paid_leave_day!=null ">
+            		AND paid_leave_day= #{paid_leave_day}
+       		</if>
+		  </where> 
+	</select> -->
+
+
+
+
+
+<insert id="addEmpsBatch"  parameterType="paid_leave" useGeneratedKeys="true" >
+		insert into [dbo].[paid_leave] (
+		[paid_leave_day],
+		[paid_leave_start],
+		[paid_leave_end],
+		[paid_leave_time],
+		[paid_leave_week],
+		[paid_leave_month],
+		[paid_leave_remark],
+		[wid],
+		[paid_leave_name],
+		[paid_leave_num],
+		[paid_leave_create],
+		[paid_leave_year]
+		)
+		values
+		 <foreach collection="emps" item="emp" separator=",">
+		(#{emp.paid_leave_day},
+		#{emp.paid_leave_start},
+		#{emp.paid_leave_end},
+		#{emp.paid_leave_time},
+		#{emp.paid_leave_week},
+		#{emp.paid_leave_month},
+		#{emp.paid_leave_remark},
+		#{emp.wid},
+		#{emp.paid_leave_name},
+		#{emp.paid_leave_num},
+		#{emp.paid_leave_create},
+		#{emp.paid_leave_year}
+		)
+		</foreach>
+	</insert>
+
+
+
+
+
+
+
+<insert id="insertpaid_leave"  parameterType="paid_leave" useGeneratedKeys="true" >
+		insert into [dbo].[paid_leave] (
+		[paid_leave_day],
+		[paid_leave_start],
+		[paid_leave_end],
+		[paid_leave_time],
+		[paid_leave_week],
+		[paid_leave_month],
+		[paid_leave_remark],
+		[wid],
+		[paid_leave_name],
+		[paid_leave_num],
+		[paid_leave_create],
+		[paid_leave_year]
+		)
+		values(#{paid_leave_day},
+		#{paid_leave_start},
+		#{paid_leave_end},
+		#{paid_leave_time},
+		#{paid_leave_week},
+		#{paid_leave_month},
+		#{paid_leave_remark},
+		#{wid},
+		#{paid_leave_name},
+		#{paid_leave_num},
+		#{paid_leave_create},
+		#{paid_leave_year}
+		)
+	</insert>
+
+	<delete id="delpaid_leave">
+		delete from paid_leave where wid = #{0}
+	</delete>
+	
+	
+	
+</mapper>

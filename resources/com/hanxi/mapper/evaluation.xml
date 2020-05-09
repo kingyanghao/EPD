@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.hanxi.dao.EvaluationDao">
+		<insert id="insert_evaluation"  parameterType="evaluation" useGeneratedKeys="true" >
+			insert into [dbo].[evaluation] (
+			[evaluation_kb],
+			[evaluation],
+			[evaluation_name],
+			[evaluation_time]
+			)
+			values(
+			#{evaluation_kb},
+			#{evaluation},
+			#{evaluation_name},
+			#{evaluation_time}
+			)
+		</insert>
+	
+			<select id="select_evaluation_list"  resultType="evaluation">
+		SELECT 
+			a.*
+		FROM [dbo].[evaluation] a
+		<where>
+		
+			<if test="evaluation_name != null and evaluation_name != ''">
+					AND a.evaluation_name = #{evaluation_name}
+			</if>
+				<if test="evaluation_kb != null and evaluation_kb != ''">
+					AND a.evaluation_kb = #{evaluation_kb}
+			</if>
+		</where>
+		
+	</select>
+	
+	
+</mapper>

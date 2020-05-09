@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanxi.dao.WeixiuDao">
+	<insert id="add" parameterType="com.hanxi.entity.Weixiu">
+		insert into [dbo].[weixiudan]
+		([img1],[img2],[img3],[shebeimingcheng],[guzhangshijian],[weixiurenyuan],[wentimiaoshu],[jiejuecuoshi],[fangfancuoshi],[weixiudanhao]
+		)
+		values
+		(#{img1},#{img2},#{img3},#{shebeimingcheng},#{guzhangshijian},#{weixiurenyuan},#{wentimiaoshu},#{jiejuecuoshi},#{fangfancuoshi},#{weixiudanhao})
+	</insert>
+	<update id="updateadd1" parameterType="com.hanxi.entity.Weixiu">
+		update [dbo].[taijia] set [taijiazhuangtai]=2 where [taijiamingcheng]=#{shebeimingcheng}
+	</update>
+	<update id="updateadd2" parameterType="com.hanxi.entity.Weixiu">
+		update [dbo].[celianggongju] set [gongjuzhuangtai]=1 where [gongjumingcheng]=#{shebeimingcheng}
+	</update>
+	<select id="findWeixiu" parameterType="com.hanxi.entity.Page" resultType="com.hanxi.entity.Weixiu">
+	SELECT TOP ${limit} * FROM [dbo].[weixiudan] WHERE id NOT IN (SELECT TOP(${limit}*(${page}-1)) id FROM [dbo].[weixiudan]
+	<if  test="keyType!=null and keyType != '' and keyWord!=null and keyWord != ''">
+		  WHERE ${keyType} like '%${keyWord}%'
+		</if>
+	 ORDER BY id desc)
+	<if  test="keyType!=null and keyType != '' and keyWord!=null and keyWord != ''">
+		  and ${keyType} like '%${keyWord}%'
+		</if>
+	
+	ORDER BY id desc
+	</select>
+	<select id="findCount" resultType="int">
+		select count(1) from [dbo].[weixiudan] 
+		<if  test="keyType!=null and keyType != '' and keyWord!=null and keyWord != ''">
+		  where ${keyType} like '%${keyWord}%'
+		</if>
+	</select>
+	<update id="updateWeixiu" parameterType="com.hanxi.entity.Weixiu">
+			update [dbo].[weixiudan] set [guandanshijian]=#{guandanshijian},[shijian]=#{shijian} where [id]=#{id}
+ 
+	</update>
+	<update id="updateWeixiu1" parameterType="com.hanxi.entity.Weixiu">
+		update [dbo].[taijia] set [taijiazhuangtai]=0 where [taijiamingcheng]=#{shebeimingcheng}
+	</update>
+	<update id="updateWeixiu2" parameterType="com.hanxi.entity.Weixiu">
+		update [dbo].[celianggongju] set [gongjuzhuangtai]=0 where [gongjumingcheng]=#{shebeimingcheng}
+	</update>
+	<delete id="deletes" >
+	delete from [dbo].[weixiudan] where weixiudanhao in
+	<foreach collection="list" item="id" open="(" close=")" separator=",">
+		#{id}
+	</foreach>
+	
+	</delete>
+	<delete id="deletesoneday" >
+	delete from [dbo].[weixiudan1] where weixiudanhao in
+	<foreach collection="list" item="id" open="(" close=")" separator=",">
+		#{id}
+	</foreach>
+	
+	</delete>
+	<select id="findWeixiuOne" parameterType="java.lang.Integer" resultType="com.hanxi.entity.Weixiu">
+		SELECT  * FROM [dbo].[weixiudan] WHERE id =#{id}
+	</select>
+	<select id="findWeixiuTwo" parameterType="java.lang.Integer" resultType="com.hanxi.entity.Weixiu">
+		SELECT  * FROM [dbo].[weixiudan] WHERE weixiudanhao =#{weixiudanhao}
+	</select>
+	<update id="tjxg" parameterType="com.hanxi.entity.Weixiu">
+		update [dbo].[weixiudan]	set
+									 [shebeimingcheng]=#{shebeimingcheng},
+									 [guzhangshijian]=#{guzhangshijian},
+									 [weixiurenyuan]=#{weixiurenyuan},
+									 [guandanshijian]=#{guandanshijian},
+									 [wentimiaoshu]=#{wentimiaoshu},
+									 [jiejuecuoshi]=#{jiejuecuoshi},
+									 [fangfancuoshi]=#{fangfancuoshi}
+									 <if  test="img1 !='img'">
+									 ,[img1]=#{img1}
+									 </if>
+									 <if  test="img2 !='img'">
+									 ,[img2]=#{img2}
+									 </if>
+									 <if  test="img3 !='img'">
+									 ,[img3]=#{img3} 
+									 </if>
+									where [id]=#{id}
+	</update>
+	<select id="weixiuEmail" resultType="java.lang.String">
+		select email from  sys_user where sendmail='yes'
+	</select>
+		<select id="weixiudanhao" resultType="com.hanxi.entity.Weixiu">
+		select * from  weixiudan where  weixiudanhao=(select MAX(weixiudanhao) from weixiudan)
+	</select>
+	
+	<insert id="addoneday" parameterType="com.hanxi.entity.Weixiu">
+		insert into [dbo].[weixiudan1]
+		([shebeimingcheng],[guzhangshichang],[year],[month],[day],[workorrest],[ymd],[weixiudanhao]
+		)
+		values
+		(#{shebeimingcheng},#{guzhangshichang},#{year},#{month},#{day},#{workorrest},#{ymd},#{weixiudanhao})
+	</insert>
+	
+</mapper>

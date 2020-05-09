@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanxi.dao.CeliangjieguoDao">
+	<insert id="celiangjieguoAdd" >
+		insert into celiangjieguo (injector,test_bench,selectt,operater,test_point1,test_point2,test_point3,test_point4,test_point5,test_point6,test_point7,test_point8,oil_point,cejieshijian)
+		values
+		<foreach collection="celiangjieguos" item="item" index="index" separator=",">
+		(
+		#{item.injector},
+		#{item.test_bench},#{item.selectt},#{item.operater},
+		#{item.test_point1},#{item.test_point2},#{item.test_point3},#{item.test_point4},#{item.test_point5},#{item.test_point6},#{item.test_point7},#{item.test_point8},
+		#{item.oil_point},#{item.cejieshijian}
+		)
+	</foreach>
+	</insert>
+	<insert id="celiangtubiao" parameterType="com.hanxi.entity.Celiangtubiao">
+	insert into celiangtubiao (	avgtest_bench,avgselectt,avgoperater,
+								avgtest_point1,avgtest_point2,avgtest_point3,avgtest_point4,avgtest_point5,avgtest_point6,avgtest_point7,avgtest_point8,avgoil_point,
+								avgcejieshijian,
+								point1_Normal,point2_Normal,point3_Normal,point4_Normal,point5_Normal,point6_Normal,point7_Normal,point8_Normal,oil_Normal,
+								point1_TL,point2_TL,point3_TL,point4_TL,point5_TL,point6_TL,point7_TL,point8_TL,oil_TL,
+								point1_TH,point2_TH,point3_TH,point4_TH,point5_TH,point6_TH,point7_TH,point8_TH,oil_TH,
+								point1_ESS,point2_ESS,point3_ESS,point4_ESS,point5_ESS,point6_ESS,point7_ESS,point8_ESS,oil_ESS
+								)
+								values
+							  ( #{avgtest_bench},#{avgselectt},#{avgoperater},
+								#{avgtest_point1},#{avgtest_point2},#{avgtest_point3},#{avgtest_point4},#{avgtest_point5},#{avgtest_point6},#{avgtest_point7},#{avgtest_point8},#{avgoil_point},
+								#{avgcejieshijian},
+								#{point1_Normal},#{point2_Normal},#{point3_Normal},#{point4_Normal},#{point5_Normal},#{point6_Normal},#{point7_Normal},#{point8_Normal},#{oil_Normal},
+								#{point1_TL},#{point2_TL},#{point3_TL},#{point4_TL},#{point5_TL},#{point6_TL},#{point7_TL},#{point8_TL},#{oil_TL},
+								#{point1_TH},#{point2_TH},#{point3_TH},#{point4_TH},#{point5_TH},#{point6_TH},#{point7_TH},#{point8_TH},#{oil_TH},
+								#{point1_ESS},#{point2_ESS},#{point3_ESS},#{point4_ESS},#{point5_ESS},#{point6_ESS},#{point7_ESS},#{point8_ESS},#{oil_ESS}
+							)
+	</insert>
+	<select id="findCeliangtubiao" parameterType="com.hanxi.entity.Celiangjieguo" resultType="com.hanxi.entity.Celiangtubiao">
+	select top(30)* from celiangtubiao where avgtest_bench=#{test_bench} and avgselectt=#{selectt} ORDER BY [avgcejieshijian] DESC 
+	</select>
+	<select id="findCeliangjieguo1" parameterType="com.hanxi.entity.Celiangjieguo" resultType="com.hanxi.entity.Celiangjieguo">
+	select top(30)* from celiangjieguo where test_bench=#{test_bench} and selectt=#{selectt} and injector='Nr.1' ORDER BY [cejieshijian] DESC 
+	</select>
+	<select id="findCeliangjieguo2" parameterType="com.hanxi.entity.Celiangjieguo" resultType="com.hanxi.entity.Celiangjieguo">
+	select top(30)* from celiangjieguo where test_bench=#{test_bench} and selectt=#{selectt} and injector='Nr.2' ORDER BY [cejieshijian] DESC 
+	</select>
+	<select id="findCeliangjieguo3" parameterType="com.hanxi.entity.Celiangjieguo" resultType="com.hanxi.entity.Celiangjieguo">
+	select top(30)* from celiangjieguo where test_bench=#{test_bench} and selectt=#{selectt} and injector='Nr.3' ORDER BY [cejieshijian] DESC 
+	</select>
+	<select id="findCeliangjieguo4" parameterType="com.hanxi.entity.Celiangjieguo" resultType="com.hanxi.entity.Celiangjieguo">
+	select top(30)* from celiangjieguo where test_bench=#{test_bench} and selectt=#{selectt} and injector='Nr.4' ORDER BY [cejieshijian] DESC 
+	</select>
+	<select id="findGongchatubiao" parameterType="com.hanxi.entity.Celiangjieguo" resultType="com.hanxi.entity.Gongcha">
+	select * from gongcha where id=(select max(id) from gongcha where bench=#{test_bench} and product=#{selectt})
+	</select>
+	<delete id="delce" parameterType="com.hanxi.entity.Celiangtubiao">
+	DELETE  from  [celiangjieguo]  where  [cejieshijian] = #{avgcejieshijian} and [selectt]=#{avgselectt} and [test_bench]=#{avgtest_bench}
+	</delete>
+	<delete id="delce1" parameterType="com.hanxi.entity.Celiangtubiao">
+	DELETE  from  [celiangtubiao]  where  [avgcejieshijian] = #{avgcejieshijian} and [avgselectt]=#{avgselectt} and [avgtest_bench]=#{avgtest_bench}
+	</delete>
+</mapper>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.hanxi.dao.Daily_checkDao">
+		<insert id="insert_daily_check"  parameterType="daily_check" useGeneratedKeys="true" >
+		insert into [dbo].[daily_check] (
+		[bench_name],
+		[power_supply],
+		[test_oil_level],
+		[hydraulic_oil_level],
+		[air_source_pressure],
+		[water_coolant],
+		[industrial_pc],
+		[security_door],
+		[interlock],
+		[pipeline],
+		[lacquer_tray],
+		[cleanliness_of_bench],
+		[oil_mist],
+		[implementer],
+		[create_time],
+		[check_time]
+		)
+		values(#{bench_name},
+		#{power_supply},
+		#{test_oil_level},
+		#{hydraulic_oil_level},
+		#{air_source_pressure},
+		#{water_coolant},
+		#{industrial_pc},
+		#{security_door},
+		#{interlock},
+		#{pipeline},
+		#{lacquer_tray},
+		#{cleanliness_of_bench},
+		#{oil_mist},
+		#{implementer},
+		#{create_time},
+		#{check_time1}
+		)
+	</insert>
+	
+	
+	
+	<select id="daily_checkDeails" resultType="daily_check">
+		SELECT 
+			a.*,a.check_time as check_time1
+		FROM [dbo].[daily_check] a
+		<where>
+			<if test="check_time != null and check_time != ''">
+					AND a.check_time = #{check_time}
+			</if>
+			<if test="daily_id != null and daily_id != '' and daily_id!=0">
+					AND daily_id = #{daily_id}
+			</if>
+			<if test="bench_name != null and bench_name != '' ">
+					AND bench_name = #{bench_name}
+			</if>
+		</where>
+		
+	</select>
+	
+	<update id="update_daily_check">
+		UPDATE [dbo].[daily_check]
+		<trim prefix="set" suffixOverrides=",">
+			<if test="bench_name != null ">bench_name =#{bench_name},</if>
+			<if test="power_supply != null  ">power_supply =#{power_supply},</if>
+			<if test="test_oil_level != null ">test_oil_level =#{test_oil_level},</if>
+			<if test="hydraulic_oil_level != null ">hydraulic_oil_level =#{hydraulic_oil_level},</if>
+			<if test="air_source_pressure != null ">air_source_pressure =#{air_source_pressure},</if>
+			<if test="water_coolant != null ">water_coolant =#{water_coolant},</if>
+			<if test="industrial_pc != null ">industrial_pc =#{industrial_pc},</if>
+			<if test="security_door != null ">security_door =#{security_door},</if>
+			<if test="interlock != null ">interlock =#{interlock},</if>
+			<if test="pipeline != null ">pipeline =#{pipeline},</if>
+			<if test="cleanliness_of_bench != null ">cleanliness_of_bench =#{cleanliness_of_bench},</if>
+			<if test="oil_mist != oil_mist ">oil_mist =#{oil_mist},</if>
+			<if test="implementer != null ">implementer =#{implementer},</if>
+		 </trim>	
+		<where>
+			<if test="daily_id != null and daily_id != ''">
+					AND daily_id = #{daily_id}
+			</if>
+			<if test="bench_name != null and bench_name != ''">
+					AND bench_name = #{bench_name}
+			</if>
+			<if test="check_time != null and check_time != ''">
+					AND check_time = #{check_time}
+			</if>
+				
+		</where>
+	</update>
+	
+	
+	<select id="daily_checkList"  resultType="daily_check">
+		select top ${pageSize} *  from daily_check 
+		<where>
+		     <if test=" bench_name != ''and  bench_name!=null ">
+            		AND bench_name like concat(concat('%',#{bench_name}),'%')
+       		</if>
+       		<if test=" startTime != ''and  startTime!=null ">
+            		AND check_time &gt;= #{startTime}
+       			</if>
+       			<if test=" endTime != ''and  endTime!=null ">
+            		AND check_time &lt;= #{endTime}
+       			</if>
+		 AND daily_id not in (select top (${pageSize} * (${pageIndex} -1)) daily_id from daily_check 
+			<where>
+		        <if test=" bench_name != ''and  bench_name!=null ">
+            		AND bench_name like concat(concat('%',#{bench_name}),'%')
+       			</if>
+       			 <if test=" startTime != ''and  startTime!=null ">
+            		AND check_time &gt;= #{startTime}
+       			</if>
+       			<if test=" endTime != ''and  endTime!=null ">
+            		AND check_time &lt;= #{endTime}
+       			</if>
+		  </where>
+		 ORDER BY [check_time] DESC)
+		 </where>
+		   ORDER BY [check_time] DESC
+	</select>
+	
+	
+	<select id="findCount"  resultType="Integer">
+		select count(*) as count from daily_check 
+		<where>
+		        <if test=" bench_name != ''and  bench_name!=null ">
+            		AND bench_name like concat(concat('%',#{bench_name}),'%')
+       			</if>
+       			<if test=" startTime != ''and  startTime!=null ">
+            		AND check_time &gt;= #{startTime}
+       			</if>
+       			<if test=" endTime != ''and  endTime!=null ">
+            		AND check_time &lt;= #{endTime}
+       			</if>
+		  </where> 
+	</select>
+	
+	<delete id="delete_daily_check">
+		delete from daily_check where daily_id = #{0}
+	</delete>
+	
+	
+	
+	
+	
+	
+		<!-- 查询每月的点检情况-->
+	<resultMap type="benchModification" id="getdaily_checkOrderList">
+		<id column="bench_id" property="bench_id"/>
+		<result column="bench_name" property="bench_name"/>
+		<result column="startMonth" property="startMonth"/>
+		<result column="endMonth" property="endMonth"/>
+	
+		<collection property="dailyList" ofType="daily_check" javaType="ArrayList" select="getdaily_checkList" column="{bench_name=bench_name,startMonth=startMonth,endMonth=endMonth}">
+			<id property="daily_id" column="daily_id" />
+		</collection>
+	</resultMap>
+
+	<select id="daily_checkOrder" resultMap="getdaily_checkOrderList">
+		SELECT 
+			a.bench_name,a.bench_id,
+			  dateadd(ms,-3,DATEADD(mm, DATEDIFF(m,0,#{startMonth})+1, 0))  as endMonth,cast(convert(varchar(8),#{startMonth},23)+&apos;01&apos; as datetime) as startMonth
+		FROM [dbo].[bench] a order by a.bench_name ASC;
+
+
+	</select>
+	<!-- 查询所有的操作人员月的加班时间 -->
+	<select id="getdaily_checkList"  resultType="daily_check">
+		select a.dt as deates,Datename(day,a.dt) AS 'days',*  from
+		(SELECT CONVERT(varchar(100), dateadd(d, number,#{startMonth}), 23) dt
+		  FROM master..spt_values  WHERE type= 'p'  AND dateadd(d, number, #{startMonth})&lt;= #{endMonth}) a
+		  LEFT JOIN (SELECT convert(varchar(100),check_time,23) aa,* from [daily_check] WHERE bench_name=#{bench_name} ) b ON a.dt= b.aa 
+
+	</select> 
+	
+	
+	
+	
+	
+</mapper>

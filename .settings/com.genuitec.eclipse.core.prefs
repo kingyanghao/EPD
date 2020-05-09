@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+validator.Checked=WebRoot/layui,WebRoot/WEB-INF/register.jsp,WebRoot/js,WebRoot/assets,WebRoot/jss/canvas-datagrid.js,WebRoot/WEB-INF/overview.jsp,WebRoot/WEB-INF/function_test.jsp,WebRoot/jss/email-decode.min.js
+validator.Unchecked=

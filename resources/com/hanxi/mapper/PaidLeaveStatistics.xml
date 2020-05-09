@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanxi.dao.PaidLeaveStatisticsDao">
+
+
+<insert id="insertpaid_leave_statistics"  parameterType="paid_leave_statistics" useGeneratedKeys="true" keyProperty="psid"  >
+		insert into [dbo].[paid_leave_statistics] (
+		[start_time],
+		[end_time],
+		[time_hour],
+		[p_remark],
+		[create_date],
+		[psid_leave_name]
+		)
+		values(#{start_time},
+		#{end_time},
+		#{time_hour},
+		#{p_remark},
+		#{create_date},
+		#{psid_leave_name}
+	
+		)
+	</insert>
+
+	<update id="updatepaid_leave_statistics">
+		UPDATE [dbo].[paid_leave_statistics]
+		<trim prefix="set" suffixOverrides=",">
+			<if test="start_time != null ">start_time =#{start_time},</if>
+			<if test="end_time != null  ">end_time =#{end_time},</if>
+			<if test="time_hour != null ">time_hour =#{time_hour},</if>
+			<if test="p_remark != null ">p_remark =#{p_remark},</if>
+			<if test="create_date != null ">create_date =#{create_date},</if>
+			
+		 </trim>	
+		<where>
+			<if test="psid != null and psid != ''">
+					AND psid = #{psid}
+			</if>
+			
+		</where>
+	</update>
+	
+
+
+
+
+<select id="findAllPaid_leaveList"  resultType="paid_leave_statistics">
+		select top ${limit} *  from paid_leave_statistics 
+		<where>
+		     <if test=" psid_leave_name != ''and  psid_leave_name !=null ">
+            	AND psid_leave_name like concat(concat('%',#{psid_leave_name}),'%')
+       		</if>
+       		 <if test=" start_time != ''and  start_time !=null ">
+            	AND start_time &gt;=#{start_time1}
+       		</if>
+       		<if test=" end_time != ''and  end_time !=null ">
+            	AND end_time &lt;=#{end_time1}
+       		</if>	
+       		
+		 AND psid not in (select top (${limit}*(${page}-1)) psid from paid_leave_statistics 
+			<where>
+		       <if test=" psid_leave_name != ''and  psid_leave_name !=null ">
+            	AND psid_leave_name like concat(concat('%',#{psid_leave_name}),'%')
+       		</if>
+       		 <if test=" start_time != ''and  start_time !=null ">
+            	AND start_time &gt;=#{start_time1}
+       		</if>
+       		<if test=" end_time != ''and  end_time !=null ">
+            	AND end_time &lt;=#{end_time1}
+       		</if>	
+       				
+		  </where>
+		 ORDER BY [create_date] DESC)
+		 </where>
+		   ORDER BY [create_date] DESC
+	</select>
+	
+	<select id="findAllPaid_leaveListCount"  resultType="Integer">
+		select count(*) as count from paid_leave_statistics 
+		<where>
+		       <if test=" psid_leave_name != ''and  psid_leave_name !=null ">
+            	AND psid_leave_name like concat(concat('%',#{psid_leave_name}),'%')
+       		</if>
+       		 <if test=" start_time != ''and  start_time !=null ">
+            	AND start_time &gt;=#{start_time1}
+       		</if>
+       		<if test=" end_time != ''and  end_time !=null ">
+            	AND end_time &lt;=#{end_time1}
+       		</if>	
+		  </where> 
+	</select>
+
+	<delete id="delpaid_leave_statistics">
+		delete from paid_leave_statistics where psid = #{0}
+	</delete>
+	
+
+
+
+<!-- 查询该调休下的所有子调休 -->
+	<resultMap type="paid_leave_statistics" id="paidOrderDeailsList">
+		<id column="psid" property="psid"/>
+		
+		<collection property="paidLeaveList" ofType="paid_leave" javaType="ArrayList" select="getPaidList" column="{wid=psid}">
+			<id property="paid" column="paid" />
+		</collection>
+	</resultMap>
+
+	<select id="paidOrderDeails" resultMap="paidOrderDeailsList">
+		SELECT a.* FROM [dbo].[paid_leave_statistics] a where a.psid=#{psid} ;
+
+	</select>
+	<!-- 查询所有的操作人员月的加班时间 -->
+	<select id="getPaidList"  resultType="paid_leave">
+		SELECT *from [paid_leave] WHERE wid=#{wid}
+	</select> 
+
+
+</mapper>

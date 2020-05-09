@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.hanxi.dao.Scheduling_recordDao">
+		
+		
+		<select id="getstatistical" resultType="scheduling_record">
+		SELECT 
+		(SELECT ISNULL(sum(cast(c.scheduling_hours as float)), '0') as hours
+		  FROM scheduling_record c
+		 
+		  <where>
+		  	c.scheduling_status= 2 and c.work_overtime= 0 and c.[workers]= a.username
+		  	<if test="year != null and year != ''">
+			  and c.year=#{year}
+			</if>
+			<if test="month != null and month != ''">
+			 and c.month=#{month}
+			</if>
+			<if test="week != null and week != ''">
+				and c.week=#{week}
+			</if>
+		  </where> 
+		  ) as workhours,
+		(SELECT ISNULL(sum(cast(d.scheduling_hours as float)), '0') as workhours
+		  FROM scheduling_record d
+		  <where>
+		  	d.scheduling_status= 2 and d.work_overtime= 1 and d.[workers]= a.username
+		  	<if test="year != null and year != ''">
+			  and d.year=#{year}
+			</if>
+			<if test="month != null and month != ''">
+			 and d.month=#{month}
+			</if>
+			<if test="week != null and week != ''">
+				and d.week=#{week}
+			</if>
+		  </where> 
+		   
+		   ) as overtimehours,
+		    a.username as workers,
+		    (SELECT ISNULL(sum(cast(e.paid_leave_time as float)), '0') as paidleavehours
+		  FROM paid_leave e
+		 
+		  <where>
+		  	 e.[paid_leave_name]= a.username
+		  	<if test="year != null and year != ''">
+			  and e.paid_leave_year=#{year}
+			</if>
+			<if test="month != null and month != ''">
+			 and e.paid_leave_month=#{month}
+			</if>
+			<if test="week != null and week != ''">
+				and e.paid_leave_week=#{week}
+			</if>
+		  </where> 
+		  ) as paidhours
+		  from sys_user a
+		  LEFT JOIN scheduling_record b on a.username= b.workers
+		 where a.role= 'operator'
+		 GROUP BY a.username
+	</select>
+		
+		
+		
+		
+		
+		
+		
+		
+		<select id="getscheduling_record" resultType="scheduling_record">
+		SELECT 
+			a.*
+		FROM [dbo].[scheduling_record] a
+		<where>
+		
+			<if test="scheduling_id != null and scheduling_id != '' and scheduling_id">
+					AND scheduling_id = #{scheduling_id}
+			</if>
+			<if test="scheduling_kb != null and scheduling_kb != '' ">
+					AND scheduling_kb = #{scheduling_kb}
+			</if>
+			<if test="scheduling_status != null and scheduling_status != '' ">
+					AND scheduling_status = #{scheduling_status}
+			</if>
+			<if test="workers != null and workers != '' ">
+					AND workers = #{workers}
+			</if>
+		
+		</where>
+	</select>
+		
+		
+		
+		<select id="select_Scheduling_record" resultType="scheduling_record">
+		SELECT 
+			a.*
+		FROM [dbo].[scheduling_record] a
+		<where>
+		
+			<if test="scheduling_id != null and scheduling_id != '' and scheduling_id">
+					AND scheduling_id = #{scheduling_id}
+			</if>
+			<if test="scheduling_kb != null and scheduling_kb != '' ">
+					AND scheduling_kb = #{scheduling_kb}
+			</if>
+			<if test="scheduling_status != null and scheduling_status != '' ">
+					AND scheduling_status = #{scheduling_status}
+			</if>
+			<if test="workers != null and workers != '' ">
+					AND workers = #{workers}
+			</if>
+			<if test="starthours != null and starthours != '' and endhours != null and endhours != ''">
+					AND ((starthours &gt; #{starthours} AND starthours  &lt;= #{endhours}) OR  
+			        (starthours  &lt;= #{starthours} AND endhours &gt;=#{ endhours}) OR  
+			        (endhours &gt;#{starthours} AND endhours  &lt;= #{endhours}))
+			</if>
+			<if test="bench_name != null and bench_name != '' ">
+					AND  bench_name=#{bench_name} 
+			</if>
+			<if test="scheduling_date != null and scheduling_date != '' ">
+					AND  scheduling_date=#{scheduling_date}
+			</if>
+			order by scheduling_date ASC
+		</where>
+	</select>
+	
+	<insert id="insert_scheduling_record"  parameterType="scheduling_record" useGeneratedKeys="true" >
+		insert into [dbo].[scheduling_record] (
+		[scheduling_kb],
+		[scheduling_va],
+		[work_overtime],
+		[workers],
+		[start_time],
+		[end_time],
+		[scheduling_status],
+		[scheduling_hours],
+		[starthours],
+		[endhours],
+		[scheduling_date],
+		[bench_name],
+		[scheduling_day],
+		[year],
+		[month],
+		[week],
+		[typeOrder]
+		
+		
+		)
+		values(
+		#{scheduling_kb},
+		#{scheduling_va},
+		#{work_overtime},
+		#{workers},
+		#{start_time},
+		#{end_time},
+		#{scheduling_status},
+		#{scheduling_hours},
+		#{starthours},
+		#{endhours},
+		#{scheduling_date},
+		#{bench_name},
+		#{scheduling_day},
+		#{year},
+		#{month},
+		#{week},
+		#{typeOrder}
+		)
+	</insert>
+	
+	
+
+
+
+
+
+
+
+
+	 <resultMap type="scheduling_record" id="getDateOrder">
+		<id column="scheduling_id" property="scheduling_id"/>
+		<result column="scheduling_date" property="scheduling_date"/>
+		<result column="workers" property="workers"/>
+		<collection property="scheduling_recordList" ofType="scheduling_record" javaType="ArrayList" select="getdateOrder" column="{scheduling_date=scheduling_date,workers=workers}">
+			<id property="scheduling_id" column="scheduling_id" />
+		</collection>
+	</resultMap>
+	<!-- 查询所有的操作人员下有订单的日期 -->
+	<select id="getoperators" resultMap="getDateOrder">
+		SELECT DISTINCT scheduling_date,workers
+				  FROM scheduling_record
+		where workers=#{workers} and scheduling_status=1 ORDER BY scheduling_date desc
+	</select>
+	<!-- 查询操作人员下的订单 -->
+	<select id="getdateOrder"  resultType="scheduling_record">
+			SELECT a.*,b.[order_placer] 
+ 		 FROM scheduling_record  a LEFT JOIN work_order b ON a.[scheduling_kb] =b.[kb_no] 
+			where a.scheduling_date=#{scheduling_date} and a.workers=#{workers}  and a.scheduling_status=1 ORDER BY a.starthours asc
+	</select> 
+	
+	
+	<delete id="delete_order">
+		delete from scheduling_record where scheduling_id =#{0}
+	</delete>
+	<update id="close_order">
+		UPDATE dbo.scheduling_record	
+		<trim prefix="set" suffixOverrides=",">
+			<if test="close_time!= null">close_time =#{close_time},</if>
+			<if test="scheduling_status!= null">scheduling_status =#{scheduling_status},</if>
+		 </trim>		
+		WHERE scheduling_id = #{scheduling_id}
+	</update>	
+	
+	
+	
+	
+	
+		
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanxi.dao.ShoudongliangjuDao">
+	<select id="findShoudongliangju" resultType="com.hanxi.entity.Shoudongliangju">
+		select * from [dbo].[shoudongliangju]  
+	</select>
+	<select id="findOneShou" parameterType="int" resultType="com.hanxi.entity.Shoudongliangju">
+		select * from [dbo].[shoudongliangju] where [id]=#{id}
+	</select>
+	<update id="xiugaiShou" parameterType="com.hanxi.entity.Shoudongliangju" >
+		update [dbo].[shoudongliangju]	set
+									 [liangjuzhuangtai]=#{liangjuzhuangtai}
+									where  [id]=#{id}
+	</update>
+</mapper>

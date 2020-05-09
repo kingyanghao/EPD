@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanxi.dao.CelianggongjuDao">
+	<select id="findCelianggongju" resultType="com.hanxi.entity.Celianggongju">
+		select * from [dbo].[celianggongju]  
+	</select>
+	<select id="findOneCe" parameterType="int" resultType="com.hanxi.entity.Celianggongju">
+		select * from [dbo].[celianggongju] where [id]=#{id}
+	</select>
+	<update id="xiugaiCe" parameterType="com.hanxi.entity.Celianggongju" >
+		update [dbo].[celianggongju] set [gongjuzhuangtai]=#{gongjuzhuangtai} where [id]=#{id}
+	</update>
+</mapper>

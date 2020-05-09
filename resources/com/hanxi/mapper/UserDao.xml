@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.hanxi.dao.UserDao">
+		<insert id="insert_register"  parameterType="sys_user" useGeneratedKeys="true" >
+		insert into [dbo].[sys_user] (
+		[username],
+		[account],
+		[password],
+		[mobile_phone],
+		[phone],
+		[email],
+		[create_time]
+		)
+		values(
+		#{username},
+		#{account},
+		#{password},
+		#{mobile_phone},
+		#{phone},
+		#{email},
+		#{create_time}
+		)
+	</insert>
+	
+	
+	
+	<select id="select_login" resultType="sys_user">
+		SELECT 
+			*
+		FROM [dbo].[sys_user] a
+		<where>
+			<if test="account != null and account != ''">
+					AND a.account = #{account}
+			</if>
+			<if test="password != null and password != ''">
+					AND a.password = #{password}
+			</if>
+			
+			<if test="mobile_phone != null and mobile_phone!=0 and mobile_phone != ''">
+					AND a.mobile_phone = #{mobile_phone}
+			</if>
+			<if test="email != null and email != ''">
+					AND a.email = #{email}
+			</if>
+			<if test="user_id != null and user_id != ''">
+					AND user_id = #{user_id}
+			</if>
+			<if test="username != null and username != ''">
+					AND username = #{username}
+			</if>
+		</where>
+		
+	</select>
+	
+	<update id="update_notes">
+		UPDATE [dbo].[sys_user]
+		<trim prefix="set" suffixOverrides=",">
+			<if test="username != null ">username =#{username},</if>
+			<if test="account != null  ">account =#{account},</if>
+			<if test="password != null ">password =#{password},</if>
+			<if test="mobile_phone != null ">mobile_phone =#{mobile_phone},</if>
+			<if test="phone != null ">phone =#{phone},</if>
+			<if test="email != null ">email =#{email},</if>
+			<if test="role != null ">role =#{role},</if>
+			<if test="create_time != null ">create_time =#{create_time},</if>
+			<if test="department != null ">department =#{department},</if>
+			<if test="work_number != null ">work_number =#{work_number},</if>
+			<if test="on_the_job != null ">on_the_job =#{on_the_job},</if>
+			<if test="uuid != null ">uuid =#{uuid},</if>
+			<if test="sendmail != null ">sendmail =#{sendmail},</if>
+			<if test="injector_num1 != null">injector_num1 =#{injector_num1},</if>
+			<if test="injector_num2 != null">injector_num2 =#{injector_num2},</if>
+			<if test="injector_num3 != null">injector_num3 =#{injector_num3},</if>
+			<if test="injector_num4 != null">injector_num4 =#{injector_num4},</if>
+			<if test="injector_num5 != null">injector_num5 =#{injector_num5},</if>
+			<if test="injector_num6 != null">injector_num6 =#{injector_num6},</if>
+			<if test="injector_num7 != null">injector_num7 =#{injector_num7},</if>
+			<if test="injector_num8 != null">injector_num8 =#{injector_num8},</if>
+			<if test="injector_num9 != null">injector_num9 =#{injector_num9},</if>
+			<if test="injector_num10 != null">injector_num10 =#{injector_num10},</if>
+			<if test="injector_num11 != null">injector_num11 =#{injector_num11},</if>
+			<if test="injector_num12 != null">injector_num12 =#{injector_num12},</if>
+			<if test="injector_num13 != null">injector_num13 =#{injector_num13},</if>
+			<if test="injector_num14 != null">injector_num14 =#{injector_num14},</if>
+			<if test="injector_num15 != null">injector_num15 =#{injector_num15},</if>
+			<if test="injector_num16 != null">injector_num16 =#{injector_num16},</if>
+			<if test="injector_num17 != null">injector_num17 =#{injector_num17},</if>
+			<if test="injector_num18 != null">injector_num18 =#{injector_num18},</if>
+			<if test="rail_1 != null">rail_1 =#{rail_1},</if>
+			<if test="rail_2 != null">rail_2 =#{rail_2},</if>
+			<if test="rail_3 != null">rail_3 =#{rail_3},</if>
+			
+			<if test="nozzle_1 != null ">nozzle_1 =#{nozzle_1},</if>
+			<if test="nozzle_2 != null ">nozzle_2 =#{nozzle_2},</if>
+			<if test="nozzle_3 != null ">nozzle_3 =#{nozzle_3},</if>
+			<if test="nozzle_4 != null ">nozzle_4 =#{nozzle_4},</if>
+			<if test="nozzle_5 != null ">nozzle_5 =#{nozzle_5},</if>
+			<if test="nozzle_6 != null ">nozzle_6 =#{nozzle_6},</if>
+			
+			<if test="others_1 != null ">others_1 =#{others_1},</if>
+			<if test="others_2 != null ">others_2 =#{others_2},</if>
+			<if test="others_3 != null ">others_3 =#{others_3},</if>
+			<if test="others_4 != null ">others_4 =#{others_4},</if>
+			<if test="others_5 != null ">others_5 =#{others_5},</if>
+			<if test="others_6 != null ">others_6 =#{others_6},</if>
+			<if test="others_7 != null ">others_7 =#{others_7},</if>
+			<if test="others_8 != null ">others_8 =#{others_8},</if>
+			<if test="others_9 != null ">others_9 =#{others_9},</if>
+			
+		 </trim>	
+		<where>
+			<if test="account != null and account != ''">
+					AND account = #{account}
+			</if>
+			<!-- <if test="mobile_phone != null and mobile_phone != ''">
+					AND mobile_phone = #{mobile_phone}
+			</if> 
+			<if test="email != null and email != ''">
+					AND email = #{email}
+			</if>-->
+				<if test="user_id != null and user_id != ''">
+					AND user_id = #{user_id}
+				</if>
+		</where>
+	</update>
+	
+	
+	<select id="findList"  resultType="sys_user">
+		select top ${pageSize} *  from sys_user 
+		<where>
+		     <if test=" username != ''and  username!=null ">
+            		AND username like concat(concat('%',#{username}),'%')
+       		</if>
+		 AND user_id not in (select top (${pageSize} * (${pageIndex} -1)) user_id from sys_user 
+			<where>
+		        <if test=" username != ''and  username!=null ">
+            		AND username like concat(concat('%',#{username}),'%')
+       			</if>
+		  </where>
+		 ORDER BY [user_id] DESC)
+		 </where>
+		   ORDER BY [user_id] DESC
+	</select>
+	
+	
+	<select id="findRecordCount"  resultType="Integer">
+		select count(*) as count from sys_user 
+		<where>
+		        <if test=" username != ''and  username!=null ">
+            		AND username like concat(concat('%',#{username}),'%')
+       			</if>
+		  </where> 
+	</select>
+	
+	<delete id="delete_notes">
+		delete from sys_user where user_id = #{0}
+	</delete>
+	
+	
+	
+	<update id="update_password">
+		UPDATE [dbo].[sys_user]
+		<trim prefix="set" suffixOverrides=",">
+			<if test="new_password!= '' ">password =#{new_password},</if>
+		<!-- 	<if test="username != '' ">username =#{username},</if> -->
+			<if test="mobile_phone != ''">mobile_phone =#{mobile_phone},</if>
+			<if test="phone != '' ">phone =#{phone},</if>
+		 </trim>	
+		<where>
+			<if test="account != null and account != ''">
+					AND account = #{account}
+			</if>
+			<if test="password != null and password != ''">
+				AND password = #{password}
+			</if>
+		</where>
+	</update>
+
+
+	<select id="AllList" resultType="sys_user">
+		SELECT  a.username
+		FROM [dbo].[sys_user] a order by a.username collate Chinese_PRC_CS_AS_KS_WS ASC;
+	</select>
+	
+	
+	<select id="operatorList" resultType="sys_user">
+		SELECT 
+			*
+		FROM [dbo].[sys_user] a where a.role='operator' order by a.username collate Chinese_PRC_CS_AS_KS_WS ASC;
+	</select>
+	
+	<select id="noOperatorList" resultType="sys_user">
+		SELECT 
+			*
+		FROM [dbo].[sys_user] a where a.role!='operator' order by a.username collate Chinese_PRC_CS_AS_KS_WS ASC;
+	</select>
+	
+	
+	<resultMap type="sys_user" id="sys_userList">
+		<id column="user_id" property="user_id"/>
+		<result column="username" property="username"/>
+		<collection property="work_orderList" ofType="work_order" javaType="ArrayList" select="getwork_order" column="{userName=username}">
+			<id property="orderid" column="orderid" />
+			<result column="preferred_operator" property="preferred_operator"/>
+		</collection>
+	</resultMap>
+
+
+	<!-- 查询所有的操作人员 -->
+	
+	<select id="getoperator" resultMap="sys_userList">
+		SELECT 
+			a.* 
+		FROM [dbo].[sys_user] a where a.role='operator' order by a.username collate Chinese_PRC_CS_AS_KS_WS ASC;
+	</select>
+	<!-- 查询操作人员下的订单 -->
+	<select id="getwork_order"  resultType="work_order">
+		select 
+			s.*,s.issue_date as issue_date1 ,s.deadline as deadline1
+		from [dbo].[work_order] s
+		where s.preferred_operator = #{userName} and s.status between 0 and 1 order by orderid desc
+	</select>
+
+	<!-- 查询所有的操作人员当日的排单 -->
+	<resultMap type="sys_user" id="getoperatorOrderList">
+		<id column="user_id" property="user_id"/>
+		<result column="username" property="username"/>
+		<result column="scheduling_date" property="scheduling_date"/>
+		<collection property="scheduling_list" ofType="scheduling_record" javaType="ArrayList" select="getdailyOrderList" column="{scheduling_date=scheduling_date,workers=username}">
+			<id property="scheduling_id" column="scheduling_id" />
+		</collection>
+	</resultMap>
+
+	<select id="dailyOrder" resultMap="getoperatorOrderList">
+
+	
+		SELECT 
+			a.username,a.user_id,a.on_the_job,(select DISTINCT scheduling_date FROM scheduling_record where scheduling_date=#{scheduling_date}) as scheduling_date
+		FROM [dbo].[sys_user] a  where a.role='operator' order by a.username collate Chinese_PRC_CS_AS_KS_WS ASC;
+
+
+	</select>
+	
+	
+	<!-- 查询操作人员下的订单 -->
+	<select id="getdailyOrderList"  resultType="scheduling_record">
+			SELECT a.*,b.[order_placer] 
+ 		 FROM scheduling_record  a LEFT JOIN work_order b ON a.[scheduling_kb] =b.[kb_no] 
+			where a.scheduling_date=#{scheduling_date} and a.workers=#{workers} ORDER BY a.starthours ASC <!--  and scheduling_status=1 去掉状态的处理 -->
+	</select> 
+	
+	
+	
+	<!-- 查询台架的排单详情 -->
+		<!-- 查询所有的操作人员当日的排单 -->
+	<resultMap type="bench" id="getbenchOrderrList">
+		<id column="bench_id" property="bench_id"/>
+		<result column="bench_name" property="bench_name"/>
+		<result column="scheduling_date" property="scheduling_date"/>
+		<collection property="schedulinglist" ofType="scheduling_record" javaType="ArrayList" select="gebenchOrder" column="{scheduling_date=scheduling_date,bench_name=bench_name}">
+			<id property="scheduling_id" column="scheduling_id" />
+		</collection>
+	</resultMap>
+
+	<select id="benchOrder" resultMap="getbenchOrderrList">
+
+	
+		SELECT 
+			a.bench_name,(select DISTINCT scheduling_date FROM scheduling_record where scheduling_date=#{scheduling_date}) as scheduling_date
+		FROM [dbo].[bench] a;
+
+
+	</select>
+	<select id="gebenchOrder"  resultType="scheduling_record">
+		SELECT *
+ 		 FROM scheduling_record
+			where scheduling_date=#{scheduling_date} and bench_name=#{bench_name}   ORDER BY starthours ASC
+	</select>
+	
+	
+	
+	
+	<!-- 查询所有的操作人员5日的排单 -->
+	<resultMap type="sys_user" id="getfiveOperatorOrderList">
+		<id column="user_id" property="user_id"/>
+		<result column="username" property="username"/>
+		<result column="dayDate"/>
+		<collection property="scheduling_list" ofType="scheduling_record" javaType="ArrayList" select="getfiveDailyOrderList" column="{workers=username,dayDate=dayDate}">
+			<id property="scheduling_id" column="scheduling_id" />
+		</collection>
+	</resultMap>
+
+	<select id="five_dailyOrder" resultMap="getfiveOperatorOrderList">
+		SELECT 
+			a.username,a.user_id, #{dayDate} as dayDate 
+		FROM [dbo].[sys_user] a  where a.role='operator' order by a.username collate Chinese_PRC_CS_AS_KS_WS ASC;
+
+
+	</select>
+	<!-- 查询操作人员下七日的订单 -->
+	<select id="getfiveDailyOrderList"  resultType="scheduling_record">
+		<!-- select DISTINCT([scheduling_date]),[workers],[scheduling_day],scheduling_kb  from scheduling_record where work_overtime=0 and workers=#{workers} and scheduling_status='1' and scheduling_day >= cast(convert(varchar(10),dateadd(day,1,getdate()),120)+' 00:00:00' as datetime) and scheduling_day &lt;= cast(convert(varchar(10),dateadd(day,5,getdate()),120)+' 23:59:59' as datetime) -->
+		select [scheduling_date],[workers],[scheduling_day],scheduling_kb,scheduling_status  from scheduling_record where work_overtime=0 and workers=#{workers}  and scheduling_day &gt;= DATEADD(wk, DATEDIFF(wk,0,DATEADD(dd, -1,#{dayDate}) ), 0) and scheduling_day &lt;= DATEADD(wk, DATEDIFF(wk,0,DATEADD(dd, -1, #{dayDate}) ), 7)
+	</select> 
+	
+	
+	
+	<!-- 查询所有的操作人员7日的加班排单 -->
+	<resultMap type="sys_user" id="getSevenOperatorOrderList">
+		<id column="user_id" property="user_id"/>
+		<result column="username" property="username"/>
+		<result column="dayDate"/>
+		<collection property="scheduling_list" ofType="scheduling_record" javaType="ArrayList" select="getsevenDailyOrderList" column="{workers=username,dayDate=dayDate}">
+			<id property="scheduling_id" column="scheduling_id" />
+		</collection>
+	</resultMap>
+
+	<select id="seven_dailyOrder" resultMap="getSevenOperatorOrderList">
+		SELECT 
+			a.username,a.user_id,#{dayDate} as dayDate 
+		FROM [dbo].[sys_user] a  where a.role='operator' order by a.username collate Chinese_PRC_CS_AS_KS_WS ASC;
+
+
+	</select>
+	<!-- 查询操作人员下未来7日的加班订单 -->
+	<select id="getsevenDailyOrderList"  resultType="scheduling_record">
+<!-- 		select DISTINCT([scheduling_date]),[workers],[scheduling_day],scheduling_kb,scheduling_status  from scheduling_record where work_overtime=1 and workers=#{workers} and scheduling_status='1' and scheduling_day >= cast(convert(varchar(10),dateadd(day,1,getdate()),120)+' 00:00:00' as datetime) and scheduling_day &lt;= cast(convert(varchar(10),dateadd(day,7,getdate()),120)+' 23:59:59' as datetime)
+ -->		select [scheduling_date],[workers],[scheduling_day],scheduling_kb,scheduling_status  from scheduling_record where work_overtime=1 and workers=#{workers} and scheduling_day &gt;= DATEADD(wk, DATEDIFF(wk,0,DATEADD(dd, -1,#{dayDate}) ), 0) and scheduling_day &lt;= DATEADD(wk, DATEDIFF(wk,0,DATEADD(dd, -1, #{dayDate}) ), 7)
+	</select> 
+	
+	
+	
+	<!-- 查询所有的操作人员月的加班时间 -->
+	<resultMap type="sys_user" id="getMonthOperatorOrderList">
+		<id column="user_id" property="user_id"/>
+		<result column="username" property="username"/>
+		<result column="startMonth" property="startMonth"/>
+		<result column="endMonth" property="endMonth"/>
+	
+		<collection property="scheduling_list" ofType="scheduling_record" javaType="ArrayList" select="getMonthDailyOrderList" column="{workers=username,startMonth=startMonth,endMonth=endMonth}">
+			<id property="scheduling_id" column="scheduling_id" />
+		</collection>
+	</resultMap>
+
+	<select id="month_dailyOrder" resultMap="getMonthOperatorOrderList">
+		SELECT 
+			a.username,a.user_id,
+			  dateadd(ms,-3,DATEADD(mm, DATEDIFF(m,0,#{startMonth})+1, 0))  as endMonth,cast(convert(varchar(8),#{startMonth},23)+&apos;01&apos; as datetime) as startMonth
+		FROM [dbo].[sys_user] a  where a.role='operator';
+
+
+	</select>
+	<!-- 查询所有的操作人员月的加班时间 -->
+	<select id="getMonthDailyOrderList"  resultType="scheduling_record">
+	SELECT Datename(day,a.dt) AS 'dates',
+       ISNULL(sum(cast(b.scheduling_hours as float)), '0') AS 'harmonious'
+  FROM(
+SELECT CONVERT(varchar(100), dateadd(d, number, #{startMonth}), 23) dt
+  FROM master..spt_values
+ WHERE type= 'p'
+   AND dateadd(d, number, #{startMonth})&lt;= #{endMonth}) a
+  LEFT JOIN (SELECT *from [scheduling_record] WHERE work_overtime=1 and workers=#{workers} and scheduling_status='2') b ON a.dt= b.scheduling_date
+
+  
+ GROUP BY a.dt
+	</select> 
+	
+	
+	
+	<select id="administratorList" resultType="String">
+		SELECT a.email
+		FROM [dbo].[sys_user] a where a.role='administrator' and sendmail='yes';
+	</select>
+	
+	<select id="emailList" resultType="String">
+		SELECT a.email
+		FROM [dbo].[sys_user] a where a.username=#{username};
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 查询所有的操作人员月的调休时间 -->
+	<resultMap type="sys_user" id="getMonthPaidOrderList">
+		<id column="user_id" property="user_id"/>
+		<result column="username" property="username"/>
+		<result column="startMonth" property="startMonth"/>
+		<result column="endMonth" property="endMonth"/>
+	
+		<collection property="paid_leaveList" ofType="paid_leave" javaType="ArrayList" select="getMonthPaidList" column="{paid_leave_name=username,startMonth=startMonth,endMonth=endMonth}">
+			<id property="paid" column="paid" />
+		</collection>
+	</resultMap>
+
+	<select id="month_PaidOrder" resultMap="getMonthPaidOrderList">
+		SELECT 
+			a.username,a.user_id,
+			  dateadd(ms,-3,DATEADD(mm, DATEDIFF(m,0,#{startMonth})+1, 0))  as endMonth,cast(convert(varchar(8),#{startMonth},23)+&apos;01&apos; as datetime) as startMonth
+		FROM [dbo].[sys_user] a ;
+
+
+	</select>
+	<!-- 查询所有的操作人员月的加班时间 -->
+	<select id="getMonthPaidList"  resultType="paid_leave">
+	SELECT Datename(day,a.dt) AS 'dates',
+       ISNULL(sum(cast(b.paid_leave_time as float)), '0') AS 'harmonious'
+  FROM(
+SELECT CONVERT(varchar(100), dateadd(d, number, #{startMonth}), 23) dt
+  FROM master..spt_values
+ WHERE type= 'p'
+   AND dateadd(d, number, #{startMonth})&lt;= #{endMonth}) a
+  LEFT JOIN (SELECT *from [paid_leave] WHERE paid_leave_name=#{paid_leave_name} ) b ON a.dt= b.paid_leave_day
+
+  
+ GROUP BY a.dt
+	</select> 
+	
+	
+</mapper>

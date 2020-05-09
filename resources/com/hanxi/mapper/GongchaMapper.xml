@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanxi.dao.GongchaDao">
+	
+	<insert id="gongchaadd" parameterType="com.hanxi.entity.Gongcha">
+		insert into [dbo].[gongcha] 
+		(
+		[product],[bench],[injector_no],[coefficinet],
+		[tolerance1],[tolerance2],[tolerance3],[tolerance4],[tolerance5],[tolerance6],[tolerance7],[tolerance8],[tolerance9],
+		[normal1],[normal2],[normal3],[normal4],[normal5],[normal6],[normal7],[normal8],[normal9],
+		[ess1],[ess2],[ess3],[ess4],[ess5],[ess6],[ess7],[ess8],[ess9],
+		[th1],[th2],[th3],[th4],[th5],[th6],[th7],[th8],[th9],
+		[tl1],[tl2],[tl3],[tl4],[tl5],[tl6],[tl7],[tl8],[tl9],[count]
+		)
+		values
+		(
+		#{product},#{bench},#{injector_no},#{coefficinet},
+		#{tolerance1},#{tolerance2},#{tolerance3},#{tolerance4},#{tolerance5},#{tolerance6},#{tolerance7},#{tolerance8},#{tolerance9},
+		#{normal1},#{normal2},#{normal3},#{normal4},#{normal5},#{normal6},#{normal7},#{normal8},#{normal9},
+		#{ess1},#{ess2},#{ess3},#{ess4},#{ess5},#{ess6},#{ess7},#{ess8},#{ess9},
+		#{th1},#{th2},#{th3},#{th4},#{th5},#{th6},#{th7},#{th8},#{th9},
+		#{tl1},#{tl2},#{tl3},#{tl4},#{tl5},#{tl6},#{tl7},#{tl8},#{tl9},#{count}
+		)
+	</insert>
+	<select id="findCountGongcha" parameterType="com.hanxi.entity.Gongcha" resultType="int">
+		select count(*) from [dbo].[gongcha] where [product]=#{product} and [bench]=#{bench} and [injector_no]=#{injector_no}
+	</select>
+	
+	<select id="findGongcha" parameterType="com.hanxi.entity.Gongcha" resultType="com.hanxi.entity.Gongcha">
+		select * from [dbo].[gongcha]
+		
+		<choose>
+        <when test="bench!=null and bench != '' and product!=null and product != ''">
+            where [bench]=#{bench} and [product]=#{product}
+        </when>
+        <when test="bench!=null and bench != ''">
+            where [bench]=#{bench} 
+        </when>
+        <when test="product!=null and product != ''">
+            where [product]=#{product}
+        </when>
+        <otherwise>
+        </otherwise>
+    </choose>
+        order by id desc
+	</select>
+	<select id="findOneGongcha" parameterType="int" resultType="com.hanxi.entity.Gongcha">
+		select * from [dbo].[gongcha] where [id]=#{id}
+	</select>
+	<update id="gongchaxiugai" parameterType="com.hanxi.entity.Gongcha" >
+		update [dbo].[gongcha] set 
+		[coefficinet]=#{coefficinet},
+		[tolerance1]=#{tolerance1},
+		[tolerance2]=#{tolerance2},
+		[tolerance3]=#{tolerance3},
+		[tolerance4]=#{tolerance4},
+		[tolerance5]=#{tolerance5},
+		[tolerance6]=#{tolerance6},
+		[tolerance7]=#{tolerance7},
+		[normal1]=#{normal1},
+		[normal2]=#{normal2},
+		[normal3]=#{normal3},
+		[normal4]=#{normal4},
+		[normal5]=#{normal5},
+		[normal6]=#{normal6},
+		[normal7]=#{normal7},
+		[ess1]=#{ess1},
+		[ess2]=#{ess2},
+		[ess3]=#{ess3},
+		[ess4]=#{ess4},
+		[ess5]=#{ess5},
+		[ess6]=#{ess6},
+		[ess7]=#{ess7},
+		[th1]=#{th1},
+		[th2]=#{th2},
+		[th3]=#{th3},
+		[th4]=#{th4},
+		[th5]=#{th5},
+		[th6]=#{th6},
+		[th7]=#{th7},
+		[tl1]=#{tl1},
+		[tl2]=#{tl2},
+		[tl3]=#{tl3},
+		[tl4]=#{tl4},
+		[tl5]=#{tl5},
+		[tl6]=#{tl6},
+		[tl7]=#{tl7}
+		where [id]=#{id}
+	</update>
+	<delete id="gongchadel" parameterType="int">
+		delete from [dbo].[gongcha] where [id]=#{id}
+	</delete>
+	</mapper>
